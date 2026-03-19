@@ -20,4 +20,3 @@ build/
 .config/fcitx5/conf/notifications.conf
 .config/fcitx5/conf/classicui.conf
 .marscode/
-zsh/.config/zsh/.oh-my-zsh
