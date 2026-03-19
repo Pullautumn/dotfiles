@@ -27,8 +27,8 @@ binds {
 
     // F功能键快捷键
     Mod+F1 hotkey-overlay-title="开关输入法 Toggle fcitx" {spawn-sh "pkill fcitx5 || fcitx5 ";}
-    Mod+F2 hotkey-overlay-title="切换waybar1" {spawn-sh "pkill waybar || true && systemctl --user start waybar.service";}
-    Mod+F3 hotkey-overlay-title="切换waybar2" {spawn-sh "pkill waybar || true && waybar -c $HOME/.config/waybar-niri-Win11Like/config.jsonc -s $HOME/.config/waybar-niri-Win11Like/style.css";}
+    Mod+F2 hotkey-overlay-title="切换waybar1"  {spawn-sh "pkill waybar || true && waybar -c $HOME/.config/waybar/config.jsonc -s $HOME/.config/waybar/style.css ";}
+    Mod+F3 hotkey-overlay-title="切换waybar2"  {spawn-sh "pkill waybar || true &&  waybar -c $HOME/.config/waybar-niri-Win11Like/config.jsonc -s $HOME/.config/waybar-niri-Win11Like/style.css ";}
     Mod+F5 hotkey-overlay-title="快速存档 Quick save" {spawn "quicksave";}
     Mod+F8 hotkey-overlay-title="快速读档 Quick load" {spawn "quickload";}
     Mod+F9 hotkey-overlay-title="切换护眼模式 Toggle sunset" {spawn "~/.local/bin/toggle-wlsunset";}
