@@ -17,8 +17,8 @@
         "on-click-middle": "close"
     },
     "network": {
-        "format": "󰅢 {bandwidthDownBytes} 󰅧 {bandwidthUpBytes}",
-        "format-disconnected": "󰅤 断开",
+        "format": "󰜮{bandwidthDownBytes} 󰜷{bandwidthUpBytes}",
+        "format-disconnected": "󰹸 断开",
         "tooltip-format": "下载: {bandwidthDownBytes}\n上传: {bandwidthUpBytes}",
         "interval": 1
     },
@@ -59,9 +59,8 @@
     },
     //======================== Middle ========================
     "custom/clock": {
-        "exec": "date '+ %d %-m月 周%a %H:%M'",
+        "exec": "date '+%-m月%-d日 %H:%M 周%a'",
         "interval": 60,
-        // "tooltip-format": "{:%Y/%m/%d %A}\n---\n左键：打开时钟\n右键：打开日历",
         "on-click": "gnome-clocks",
         "on-click-right": "gnome-calendar"
     },
