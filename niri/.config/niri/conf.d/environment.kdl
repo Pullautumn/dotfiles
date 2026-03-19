@@ -1,35 +1,38 @@
 // 环境变量配置
 environment {
-    DISPLAY ":0"
-    ELECTRON_OZONE_PLATFORM_HINT "auto"
-    
-    // ========== 输入法设置 ==========
-    GTK_IM_MODULE "fcitx"
-    QT_IM_MODULE "fcitx"
-    XMODIFIERS "@im=fcitx"
-    
-    // ========== 主题设置（关键修改） ==========
-    // GTK_THEME "Adwaita"                   // 明确设置 GTK 主题
-    QT_QPA_PLATFORMTHEME "gtk4"           // 让 Qt 应用使用 GTK 主题
-    QT_STYLE_OVERRIDE "adwaita"           // Qt 样式
-    
-    // ========== Wayland 相关 ==========
-    QT_QPA_PLATFORM "wayland"
-    MOZ_ENABLE_WAYLAND "1"
-    
+    // ========== 语言 ==========
+    LANG "zh_CN.UTF-8"              // 设置系统全局语言为简体中文
+    LC_CTYPE "en_US.UTF-8"          // 字符分类用英文，解决 fcitx5 输入法漏字问题
+
+    // ========== 输入法 ==========
+    GTK_IM_MODULE "fcitx"           // GTK 应用使用 fcitx 输入法框架
+    QT_IM_MODULE "fcitx"            // Qt 应用使用 fcitx 输入法框架
+    XMODIFIERS "@im=fcitx"          // X11 应用使用 fcitx 输入法框架
+
+    // ========== 主题 ==========
+    QT_QPA_PLATFORMTHEME "gtk3"     // Qt 应用跟随 GTK3 主题，保持界面风格统一
+    QT_STYLE_OVERRIDE "adwaita"     // 强制 Qt 应用使用 Adwaita 样式
+    GSK_RENDERER "gl"               // GTK 使用 OpenGL 渲染器，解决 N 卡双显卡导致的 GTK 应用启动缓慢问题，单显卡可注释
+    QS_ICON_THEME "Adwaita"         // QuickShell 使用 Adwaita 图标主题，解决图标缺失问题
+
+    // ========== Wayland ==========
+    // QT_QPA_PLATFORM "wayland"       // 强制 Qt 应用使用 Wayland 原生后端，而非 XWayland
+    // MOZ_ENABLE_WAYLAND "1"          // 强制 Firefox 使用 Wayland 原生后端
+    // ELECTRON_OZONE_PLATFORM_HINT "auto" // Electron 应用（VSCode/Discord等）自动选择 Wayland 或 X11
+    // DISPLAY ":0"                    // 指定 XWayland 显示器编号，供 X11 应用使用
+
     // ========== 桌面环境标识 ==========
-    XDG_CURRENT_DESKTOP "GNOME"
-    XDG_SESSION_DESKTOP "GNOME"
-    
-    // ========== Java 设置 ==========
-    _JAVA_AWT_WM_NONREPARENTING "1"      // 修正变量名
-    
-    // ========== Xwayland 应用缩放设置 ==========
-    GDK_SCALE "1.5"
-    GDK_DPI_SCALE "1.0"
-    QT_SCALE_FACTOR "1.5"
-    QT_AUTO_SCREEN_SCALE_FACTOR "0"
-    XWAYLAND_SCALE "1.5"
-    XCURSOR_SIZE "24"
+    // XDG_CURRENT_DESKTOP "GNOME"      // 告知应用当前桌面环境是 niri，避免误判为 GNOME/KDE
+    // XDG_SESSION_DESKTOP "GNOME"      // 告知会话管理器当前桌面环境是 niri
+
+    // ========== 缩放 ==========
+    GDK_SCALE "1.5"                 // GTK 应用整体缩放倍率（适配 HiDPI 屏幕）
+    GDK_DPI_SCALE "1.0"             // GTK 应用 DPI 微调倍率，配合 GDK_SCALE 使用
+    QT_SCALE_FACTOR "1.5"           // Qt 应用整体缩放倍率（适配 HiDPI 屏幕）
+    QT_AUTO_SCREEN_SCALE_FACTOR "0" // 禁用 Qt 自动缩放，避免与手动缩放冲突
+    XCURSOR_SIZE "24"               // 鼠标光标大小（HiDPI 下建议 24 或 32）
+
+    // ========== Java ==========
+    _JAVA_AWT_WM_NONREPARENTING "1" // 修复 Java 应用（如 JetBrains IDE）在平铺窗口管理器下显示异常
 }
 screenshot-path "/home/pullautumn/Pictures/Screenshots/from %Y-%m-%d %H-%M-%S.png"
