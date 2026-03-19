@@ -272,6 +272,8 @@ tooltip label {
 #privacy {
     background-color: #ff0000;
     /* 设置隐私模块背景为红色 */
+    padding-right: 0px;
+    padding-left: 9px;
 }
 
 /* ===== 时钟模块样式 ===== */

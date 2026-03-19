@@ -1,0 +1,38 @@
+# --- Standard Packages ---
+baobab                                   # 磁盘使用分析器
+mission-center                           # 系统监视器（任务管理器风格）
+gnome-disk-utility                       # 磁盘管理工具
+gnome-font-viewer                        # 字体管理器
+fcitx5-mozc                              # 日语输入法
+google-chrome                            # 浏览器
+firefox                                  # 浏览器
+localsend                                # 局域网文件传输工具
+nm-connection-editor                     # 高级网络连接编辑器
+gamescope                                # Valve 出品的游戏合成器
+heroic-games-launcher-bin                # Epic 游戏启动器
+lutris                                   # 游戏管理平台（非 Steam）
+steam                                    # Steam 游戏平台
+protonplus                               # Proton 版本管理器
+mangohud                                 # 游戏 OSD 性能监控（类 MSI Afterburner）
+lact                                     # GPU 控制工具（超频/风扇）
+wine                                     # 运行 Windows 程序
+virt-manager                             # KVM/QEMU 虚拟机管理器
+lazyvim                                  # Neovim 预设配置
+neovim                                   # 增强版 Vim
+mpv                                      # 极简高性能视频播放器
+obs-studio                               # 直播录屏工具
+upscaler                                 # 图片超分辨率工具
+yazi                                     # 优秀的终端文件管理器
+flatseal                                 # Flatpak 权限管理器
+pavucontrol                              # 音频配置图形界面
+# --- AUR Packages ---
+AUR:sparkle-bin                          # 代理
+AUR:linuxqq-appimage                     # 腾讯 QQ（AppImage）
+AUR:wechat-appimage                      # 微信（AppImage）
+AUR:mangojuice-bin                       # MangoHud 图形配置工具
+AUR:visual-studio-code-bin               # VSCode
+
+# --- Flatpak Packages ---
+flatpak:com.github.wwmm.easyeffects      # PipeWire 音频效果器
+flatpak:io.github.fabrialberio.pinapp    # .desktop 文件编辑器
+flatpak:it.mijorus.gearlever             # AppImage 管理器

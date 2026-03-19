@@ -60,7 +60,7 @@ configuration {
     max-history-size: 25;
     combi-hide-mode-prefix: false;
     matching-negate-char: '-';
-    cache-dir: "/home/pullautumn/.cache/rofi";
+    cache-dir: "~/.cache/rofi";
     window-thumbnail: false;
     drun-use-desktop-cache: true;
     drun-reload-desktop-cache: true;

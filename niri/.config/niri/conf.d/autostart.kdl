@@ -35,7 +35,7 @@ spawn-at-startup "swayosd-server"
 // niri-siderbar
 // spawn-at-startup "~/.local/bin/niri-sidebar" "listen"
 // 允许root通过用户的xwayland打开窗口
-// spawn-at-startup "xhost" "+si:localuser:root"
+spawn-at-startup "xhost" "+si:localuser:root"
 
 
 // 系统基础服务

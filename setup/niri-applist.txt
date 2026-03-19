@@ -1,0 +1,50 @@
+# --- Standard Packages ---
+stow                                     # 配置文件管理器（符号链接管理）
+bazaar                                   # Flatpak 图形商店
+network-manager-applet                   # 网络管理器托盘图标
+blueman                                  # 蓝牙管理器
+swaync                                   # 通知管理器（使用 mako 可不安装）
+brightnessctl                            # 屏幕亮度控制
+cliphist                                 # 剪贴板历史记录管理器
+clipnotify                               # X11 剪贴板监听器
+wl-clipboard                             # Wayland 命令行复制粘贴工具
+xclip                                    # X11 剪贴板管理器
+grim                                     # Wayland 截图工具
+slurp                                    # 屏幕区域选择器（配合 grim 使用）
+satty                                    # 现代截图标注工具
+wf-recorder                              # Wayland 录屏工具
+wl-screenrec-git                         # Wayland 录屏工具（Rust 实现）
+hyprlock                                 # 带特效的锁屏程序（模糊/截图）
+imv                                      # Wayland 图片查看器
+imagemagick                              # 图片处理工具
+ffmpegthumbnailer                        # 视频缩略图生成器
+waifu2x-ncnn-vulkan                      # 动漫壁纸超分辨率工具
+jq                                       # 命令行 JSON 处理器
+nwg-look                                 # Wayland GTK3 主题设置器
+pacman-contrib                           # pacman 实用工具集
+swayidle                                 # 空闲管理守护进程（自动锁屏/休眠）
+swayosd                                  # 音量/亮度 OSD 显示
+swww                                     # 高效 Wayland 壁纸守护进程
+ttf-jetbrains-mono-nerd                  # JetBrains Mono 字体（Nerd Font 版）
+ttf-cascadia-code-nerd                   # Cascadia Code 字体（Nerd Font 版，waybar使用）
+waybar                                   # 高度可定制的 Wayland 状态栏
+wlsunset                                 # 护眼模式（自动色温调节）
+rofi                                     # 应用启动器
+xwayland-satellite                       # XWayland 兼容层
+pavucontrol                              # 音频配置图形界面
+downgrade                                # 软件版本回退工具
+strace                                   # shorin-contrib-git 依赖
+
+# --- AUR Packages ---
+wlogout                                  # 电源管理菜单
+#AUR:shorin-contrib-git                  # shorin 工具集
+#AUR:clipsync-git                        # X11 <-> Wayland 剪贴板同步
+#AUR:shorinclip-git                      # 自制剪贴板 TUI
+AUR:ddcutil-service                      # 外接显示器硬件亮度控制服务
+#AUR:matugen                             # Material You 主题色生成器
+AUR:python-pywalfox                      # Firefox Pywal 支持
+AUR:ttf-jetbrains-maple-mono-nf-xx-xx    # Maple Mono NF 字体
+AUR:ttf-lxgw-wenkai-screen               # 霞鹜文楷屏幕版字体
+#AUR:waybar-niri-taskbar-git             # Waybar Niri 工作区/任务栏模块
+AUR:waypaper                             # 图形化壁纸设置器（swww 前端）
+AUR:niri-sidebar-git                     # Niri 侧边栏功能

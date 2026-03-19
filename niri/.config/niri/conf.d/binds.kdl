@@ -45,8 +45,8 @@ binds {
     Mod+F12 hotkey-overlay-title=null {spawn "kitty" "--class" "quickterminal";}
     // 打开yazi
     Mod+Y hotkey-overlay-title="yazi" { spawn "kitty" "--class" "Yazi" "--" "yazi"; }
-    Mod+A     hotkey-overlay-title="应用启动器"    repeat=false    { spawn "/home/pullautumn/.config/rofi/scripts/launcher_t8"; }
-    Mod+Shift+V     hotkey-overlay-title="剪贴板"  repeat=false    { spawn "bash" "-c" "pkill rofi || /home/pullautumn/.local/share/bin/cliphist-fuzzel-img"; }
+    Mod+A     hotkey-overlay-title="应用启动器"    repeat=false    { spawn "~/.config/rofi/scripts/launcher_t8"; }
+    Mod+Shift+V     hotkey-overlay-title="剪贴板"  repeat=false    { spawn "bash" "-c" "pkill rofi || ~/.local/share/bin/cliphist-fuzzel-img"; }
     // 锁屏
     // Mod+Ctrl+L     hotkey-overlay-title="锁屏"     { spawn "gtklock"; }
     Mod+Alt+L hotkey-overlay-title="锁屏" { spawn-sh "hyprlock -c ~/.config/niri/hyprlock.conf"; }
@@ -274,8 +274,8 @@ binds {
 	// Mod+Ctrl+p hotkey-overlay-title="全屏截图" { spawn-sh "grim - | swappy -f - -o - | wl-copy"; }
     // Mod+P hotkey-overlay-title="截图" { spawn "bash" "-c" "flameshot gui"; }
     Ctrl+Alt+A hotkey-overlay-title="截图" { spawn-sh "grim -g \"$(slurp)\" - | markpix -f - -o - | wl-copy"; }
-    // Mod+p hotkey-overlay-title="截图" { spawn "bash" "/home/pullautumn/.config/niri/scripts/screenshot.sh"; }
-    // Mod+Alt+p hotkey-overlay-title="录屏" { spawn "bash" "/home/pullautumn/.config/niri/scripts/wf-recorder.sh"; }
+    // Mod+p hotkey-overlay-title="截图" { spawn "bash" "~/.config/niri/scripts/screenshot.sh"; }
+    // Mod+Alt+p hotkey-overlay-title="录屏" { spawn "bash" "~/.config/niri/scripts/wf-recorder.sh"; }
     Print hotkey-overlay-title="截图" { spawn-sh "grim -g \"$(slurp)\" - | satty -f - -o - | wl-copy"; }
     //Mod+Shift+S { spawn "~/.config/niri/scripts/satty-screenshot.sh";}
     Mod+Shift+S  hotkey-overlay-title="截图后按下此键进行编辑" { spawn-sh "wl-paste | satty -f -";}

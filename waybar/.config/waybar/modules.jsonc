@@ -2,7 +2,7 @@
     //======================== Left ========================
     "custom/launcher": {
         "format": "&#8239;",
-        "on-click": "sh -c '/home/pullautumn/.config/rofi/scripts/launcher_t7'",
+        "on-click": "sh -c '~/.config/rofi/scripts/launcher_t7'",
         "tooltip-format": "Launcher"
     },
     "niri/workspaces": {
@@ -193,7 +193,7 @@
         },
         // 交互逻辑（滚动改回调节扬声器音量，更符合直觉）
         "on-click": "swayosd-client --output-volume mute-toggle || wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "on-click-right": "swayosd-client --input-volume mute-toggle || wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "on-click-middle": "pavucontrol --tab=3",
         "on-scroll-up": "swayosd-client --output-volume +1 || wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+",
         "on-scroll-down": "swayosd-client --output-volume -1 || wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-",
@@ -230,7 +230,7 @@
     //   "on-right-click": "bash -c 'current=$(powerprofilesctl get); case $current in performance) powerprofilesctl set balanced ;; balanced) powerprofilesctl set power-saver ;; power-saver) powerprofilesctl set performance ;; esac'"
     // },
     // "custom/battery": {
-    //   "exec": "/home/pullautumn/.local/share/bin/battery",
+    //   "exec": "~/.local/share/bin/battery",
     //   "interval": 2,
     //   "tooltip": true,
     //   "tooltip-format": "当前电量: {}"
