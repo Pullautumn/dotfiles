@@ -1,0 +1,147 @@
+// 窗口规则配置
+// 放进overview里的壁纸程序
+layer-rule{
+    //match namespace="hyprpaper"
+    //match namespace="wallpaper"
+    match namespace="awww-daemon"
+    match namespace="swww-daemonoverview"
+    place-within-backdrop true
+}
+// 带缩略图的alt+tab切换窗口功能（但是我设置的是super+tab，更符合逻辑）
+recent-windows {
+    // 取消//off的注释可以禁用
+    // off
+    debounce-ms 750
+    open-delay-ms 150
+
+    highlight {
+        active-color "#999999ff"
+        urgent-color "#ff9999ff"
+        // 缩略图背景内间距
+        padding 30
+        // 缩略图的背景圆角
+        corner-radius 12
+    }
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        // scope可以设置显示的窗口是当前工作区的、还是当前显示器的、或者显示全部窗口
+        Mod+Tab         { next-window scope="workspace"; }
+        Mod+Shift+Tab   { previous-window scope="workspace"; }
+        // grave是波浪键，显示当前应用的所有窗口
+        Mod+grave       { next-window     filter="app-id"; }
+        Mod+Shift+grave { previous-window filter="app-id"; }
+    }
+}
+
+// 以浮动模式打开的软件
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id="wechat" title="^设置$"
+    match app-id="com.gabm.satty"
+    match app-id="media_info"
+    match app-id="video2gif"
+    match app-id="floating-term"
+    match app-id="nm-connection-editor"
+    match app-id="niri-quick-switch"
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="blueberry.py" title="蓝牙"
+    match app-id="blueman-manager"
+    match app-id="flameshot"
+    match app-id="com.github.hluk.copyq" 
+    match app-id="be.alexandervanhee.gradia"
+    match app-id="org.pulseaudio.pavucontrol" title="音量控制"
+    match app-id="org.gnome.clocks" title="时钟"
+    match app-id="fcitx" title="Fcitx5 Input Window"
+    match app-id="org.gnome.FileRoller"
+    match app-id="thunar" title="文件操作进度"
+    match app-id="waypaper"
+    match app-id="clipse-gui"
+    match title="群聊的聊天记录"
+    match title="聊天记录"
+    match title="日历"
+    match title="重命名"
+    match app-id="btrfs-assistant"
+    match app-id="markpix"
+    match title="Steam 设置" 
+    match title="另存为"
+    match app-id="better_control.py"
+    match app-id="niri-hotkey-menu"
+    open-floating true
+}
+
+//快速终端
+window-rule {
+    match app-id="notebook"
+    match app-id="quickterminal"
+	open-floating true
+	default-floating-position x=20 y=20 relative-to="top"
+    default-column-width { fixed 800; }
+    default-window-height { fixed 500; }
+}
+window-rule {
+    // This regular expression is intentionally made as specific as possible,
+    // since this is the default config, and we want no false positives.
+    // You can get away with just app-id="wezterm" if you want.
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"librewolf$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"ibus-ui-gtk3$"#
+    open-floating true
+    open-focused false
+    opacity 0.75
+}
+
+overview {
+    zoom 0.6
+    workspace-shadow {
+        //off
+    }
+}
+
+
+// Example: block out two password managers from screen capture.s
+// (This example rule is commented out with a "/-" in front.)
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    block-out-from "screen-capture"
+
+    // Use this instead if you want them visible on third-party screenshot tools.
+    // block-out-from "screencast"
+}
+
+// Example: enable rounded corners for all windows.
+// (This example rule is commented out with a "/-" in front.)
+window-rule {
+    geometry-corner-radius 6
+    clip-to-geometry true
+}
+
+

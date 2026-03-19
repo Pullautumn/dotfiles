@@ -1,0 +1,47 @@
+/* 🎯 swaync 右侧半透明通知 - 视觉清晰版 */
+#notification-container {
+    position: fixed !important;
+    right: 0 !important;
+    top: 10px !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    padding-right: 20px !important;
+    background-color: transparent !important;
+}
+
+.notification {
+    background: rgba(30, 30, 46, 0.85) !important; /* 深蓝灰，来自 wal 的 color0 */
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    text-align: right !important;
+    max-width: 400px !important;
+    padding: 14px 16px !important;
+    border: none !important;
+}
+
+.notification-content {
+    text-align: right !important;
+}
+
+/* 让文字更清晰（如果背景深） */
+.notification-content label,
+.notification-content .body,
+.notification-content .summary {
+    color: #e0e0e0 !important; /* 灰白色文字 */
+    font-weight: 500 !important;
+}
+
+/* 关闭按钮 */
+.close-button {
+    color: #b0b0b0 !important;
+    opacity: 0.7 !important;
+}
+
+.close-button:hover {
+    color: white !important;
+    opacity: 1 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 50% !important;
+}

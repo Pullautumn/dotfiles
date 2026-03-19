@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=QQ
+Exec=env GTK_IM_MODULE=fcitx5 QT_IM_MODULE=fcitx5 XMODIFIERS=@im=fcitx5 /usr/bin/linuxqq %U
+Terminal=false
+Type=Application
+Icon=qq
+StartupWMClass=QQ
+Categories=Network;
+Comment=QQ

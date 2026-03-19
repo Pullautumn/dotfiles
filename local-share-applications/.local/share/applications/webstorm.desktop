@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=WebStorm
+Comment=The Smartest JavaScript IDE
+Exec=/opt/JetBrains/webstorm/bin/webstorm %U
+Terminal=false
+Type=Application
+Icon=/opt/JetBrains/webstorm/bin/webstorm.png
+StartupWMClass=jetbrains-webstorm
+Categories=Development;IDE;Programming;JavaScript;Web;
+Keywords=JavaScript;Vue;React;Web;IDE;Code;Development;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=PhpStorm
+Comment=PHP IDE for Professional Developers
+Exec=/opt/JetBrains/phpstorm/bin/phpstorm %U
+Terminal=false
+Type=Application
+Icon=/opt/JetBrains/phpstorm/bin/phpstorm.png
+StartupWMClass=PhpStorm
+Categories=Development;IDE;Programming;PHP;
+Keywords=PHP;IDE;Code;Development;

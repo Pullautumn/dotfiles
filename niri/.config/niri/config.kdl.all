@@ -1,0 +1,605 @@
+input {
+    keyboard {
+        xkb {
+            // You can set rules, model, layout, variant and options.
+            // For more information, see xkeyboard-config(7).
+
+            // For example:
+            layout "us"
+            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+            // 只灭灯，但保留切大写功能
+            options "caps:shift_nocancel"
+        }
+        numlock
+    }
+
+    touchpad {
+        // off
+        tap
+        // dwt
+        // dwtp
+        // drag-lock
+        //natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "two-finger"
+        // disabled-on-external-mouse
+    }
+
+    mouse {
+        // off
+        // natural-scroll
+        // 鼠标速度
+        // accel-speed -0.15
+        // 禁用鼠标加速 
+        accel-profile "flat"
+        // scroll-method "no-scroll"
+    }
+
+    trackpoint {
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "on-button-down"
+        // scroll-button 273
+        // middle-emulation
+    }
+
+    warp-mouse-to-focus
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+// by running `niri msg outputs` while inside a niri instance.
+output "eDP-1" {
+    mode "2560x1440@120"
+    scale 1.5
+    // position x=0 y=0
+}
+
+output "DP-1" {
+    mode "3840x2160"
+    scale 1.5
+    // position x=1463 y=0
+}
+
+// 带缩略图的alt+tab切换窗口功能（但是我设置的是super+tab，更符合逻辑）
+recent-windows {
+    // 取消//off的注释可以禁用
+    // off
+    debounce-ms 750
+    open-delay-ms 150
+
+    highlight {
+        active-color "#999999ff"
+        urgent-color "#ff9999ff"
+        // 缩略图背景内间距
+        padding 30
+        // 缩略图的背景圆角
+        corner-radius 12
+    }
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        // scope可以设置显示的窗口是当前工作区的、还是当前显示器的、或者显示全部窗口
+        Mod+Tab         { next-window scope="workspace"; }
+        Mod+Shift+Tab   { previous-window scope="workspace"; }
+        // grave是波浪键，显示当前应用的所有窗口
+        Mod+grave       { next-window     filter="app-id"; }
+        Mod+Shift+grave { previous-window filter="app-id"; }
+    }
+}
+
+layout {
+
+    gaps 8
+	
+	// center-focused-column "always"
+    center-focused-column "never"
+
+    default-column-width { proportion 0.8; }
+    
+    preset-column-widths {
+    		proportion 0.2
+    		proportion 0.5
+    		proportion 0.6
+    		proportion 0.8
+    		proportion 1.0
+    }
+    
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+    // If you leave the brackets empty, the windows themselves will decide their initial width.
+    // default-column-width {}
+
+    // By default focus ring and border are rendered as a solid background rectangle
+    // behind windows. That is, they will show up through semitransparent windows.
+    // This is because windows using client-side decorations can have an arbitrary shape.
+    //
+    // If you don't like that, you should uncomment `prefer-no-csd` below.
+    // Niri will draw focus ring and border *around* windows that agree to omit their
+    // client-side decorations.
+    //
+    // Alternatively, you can override it with a window rule called
+    // `draw-border-with-background`.
+
+    focus-ring {
+        width 3
+        active-color "#6969ff"
+        inactive-color "#11111b"
+    }
+}
+
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+// 加载 XWayland DPI
+spawn-sh-at-startup "echo 'Xft.dpi: 144' | xrdb -merge"
+// 系统基础服务
+spawn-at-startup "sh" "-c" "systemctl --user set-environment XDG_CURRENT_DESKTOP=wlroots"
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-at-startup "xwayland-satellite"
+// 桌面门户
+spawn-at-startup "systemctl" "--user" "restart" "xdg-desktop-portal"
+spawn-at-startup "xdg-desktop-portal-wlr"
+//输入法
+spawn-at-startup "fcitx5"
+// 大写锁定键的osd显示
+spawn-at-startup "swayosd-server"
+
+// spawn-at-startup "alacritty" "-e" "fish"
+// spawn-at-startup "ibus-daemon" "-rxRd"
+
+environment {
+    DISPLAY ":0"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    
+    // ========== 输入法设置 ==========
+    GTK_IM_MODULE "fcitx"
+    QT_IM_MODULE "fcitx"
+    XMODIFIERS "@im=fcitx"
+    
+    // ========== 主题设置（关键修改） ==========
+    // GTK_THEME "Adwaita"                   // 明确设置 GTK 主题
+    QT_QPA_PLATFORMTHEME "gtk4"           // 让 Qt 应用使用 GTK 主题
+    QT_STYLE_OVERRIDE "adwaita"           // Qt 样式
+    
+    // ========== Wayland 相关 ==========
+    QT_QPA_PLATFORM "wayland"
+    MOZ_ENABLE_WAYLAND "1"
+    
+    // ========== 桌面环境标识 ==========
+    XDG_CURRENT_DESKTOP "GNOME"
+    XDG_SESSION_DESKTOP "GNOME"
+    
+    // ========== Java 设置 ==========
+    _JAVA_AWT_WM_NONREPARENTING "1"      // 修正变量名
+    
+    // ========== Xwayland 应用缩放设置 ==========
+    GDK_SCALE "1.5"
+    GDK_DPI_SCALE "1.0"
+    QT_SCALE_FACTOR "1.5"
+    QT_AUTO_SCREEN_SCALE_FACTOR "0"
+    XWAYLAND_SCALE "1.5"
+    XCURSOR_SIZE "24"
+}
+
+prefer-no-csd
+
+screenshot-path "/home/pullautumn/Pictures/Screenshots/from %Y-%m-%d %H-%M-%S.png"
+
+animations {
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+}
+
+layer-rule {
+    match namespace="^swww-daemon$"
+    place-within-backdrop true
+}
+
+// Window rules let you adjust behavior for individual windows.
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+
+// Work around WezTerm's initial configure bug
+// by setting an empty default-column-width.
+
+window-rule {
+    match app-id="wechat" title="^设置$"
+    open-floating true
+    open-focused false
+}
+/-window-rule {
+    match app-id="wechat" title=".*"
+    open-floating true
+    open-focused false
+}
+
+// 以浮动模式打开
+window-rule{
+	match app-id="pullautumnclip"
+	min-width 100
+	min-height 200
+	open-floating true
+
+}
+
+window-rule {
+    // This regular expression is intentionally made as specific as possible,
+    // since this is the default config, and we want no false positives.
+    // You can get away with just app-id="wezterm" if you want.
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"librewolf$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"ibus-ui-gtk3$"#
+    open-floating true
+    open-focused false
+    opacity 0.75
+
+}
+
+overview {
+    zoom 0.6
+    workspace-shadow {
+        //off
+    }
+}
+
+// window-rule {
+//     match is-active=false
+//     opacity 0.95
+// }
+
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+// Example: block out two password managers from screen capture.s
+// (This example rule is commented out with a "/-" in front.)
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    block-out-from "screen-capture"
+
+    // Use this instead if you want them visible on third-party screenshot tools.
+    // block-out-from "screencast"
+}
+
+// Example: enable rounded corners for all windows.
+// (This example rule is commented out with a "/-" in front.)
+window-rule {
+    geometry-corner-radius 6
+    clip-to-geometry true
+}
+
+binds {
+    // Keys consist of modifiers separated by + signs, followed by an XKB key name
+    // in the end. To find an XKB name for a particular key, you may use a program
+    // like wev.
+    //
+    // "Mod" is a special modifier equal to Super when running on a TTY, and to Alt
+    // when running as a winit window.
+    //
+    // Most actions that you can bind here can also be invoked programmatically with
+    // `niri msg action do-something`.
+
+    // Mod-Shift-/, which is usually the same as Mod-?,
+    // shows a list of important hotkeys.
+    // 显示快捷键教程
+    Mod+Alt+Slash hotkey-overlay-title="快捷键教程 Keybind tutorial" { spawn "~/.config/niri/scripts/niri-binds"; }
+    // alt+tab切换窗口
+    Alt+Tab hotkey-overlay-title="快速跳转窗口 Quick window switch menu" {spawn "~/.config/niri/scripts/niri-quick-switch-fuzzel.py";}
+    // 通知栏
+    Mod+N    hotkey-overlay-title="通知栏" repeat=false { spawn "swaync-client" "-t"; }
+
+    Mod+Alt+W hotkey-overlay-title="切换壁纸 Change wallpaper" {spawn "waypaper";}
+    Mod+Alt+M hotkey-overlay-title="切换颜色策略 Change color strategy" {spawn "~/.config/scripts/matugen-select-type.sh";}
+    Mod+Alt+T hotkey-overlay-title="切换颜色策略 Change color strategy" {spawn "~/.config/scripts/matugen-select-type.sh";}
+    Mod+F10 hotkey-overlay-title="随机切换壁纸 Random wallpaper" {spawn "waypaper" "--random";}
+    Mod+Shift+F10 hotkey-overlay-title="随机下载动漫壁纸 Random download anime wallpaper" {spawn "~/.config/scripts/random-anime-wallpaper.sh";}
+
+    // F功能键快捷键
+    Mod+F1 hotkey-overlay-title="开关输入法 Toggle fcitx" {spawn-sh "pkill fcitx5 || fcitx5 ";}
+    // Mod+F2 hotkey-overlay-title=null  {spawn-sh "pkill cava || true && pkill waybar || true && waybar -c $HOME/.config/waybar/config.jsonc -s $HOME/.config/waybar/style.css ";}
+    // Mod+F3  hotkey-overlay-title=null {spawn-sh "pkill cava || true && pkill waybar || true &&  waybar -c $HOME/.config/waybar-niri-Win11Like/config.jsonc -s $HOME/.config/waybar-niri-Win11Like/style.css ";}
+    Mod+F2 hotkey-overlay-title="切换waybar1" {spawn-sh "systemctl --user stop waybar.service || true && pkill waybar || true && systemctl --user start waybar.service";}
+    Mod+F3 hotkey-overlay-title="切换waybar2" {spawn-sh "systemctl --user stop waybar.service || true && pkill waybar || true && waybar -c $HOME/.config/waybar-niri-Win11Like/config.jsonc -s $HOME/.config/waybar-niri-Win11Like/style.css";}
+    Mod+F5 hotkey-overlay-title="快速存档 Quick save" {spawn "quicksave";}
+    Mod+F8 hotkey-overlay-title="快速读档 Quick load" {spawn "quickload";}
+    Mod+F9 hotkey-overlay-title="切换护眼模式 Toggle sunset" {spawn "~/.local/bin/toggle-wlsunset";}
+    // 这一行是用waybar自己支持的信号功能隐藏waybar，但进程没有退出，资源占用依旧有
+    Mod+Shift+F4 hotkey-overlay-title="隐藏waybar" {spawn-sh "killall -SIGUSR1 waybar";}
+
+    // 打开终端
+    Mod+Return     hotkey-overlay-title="终端"      { spawn "kitty"; }
+    Mod+T     hotkey-overlay-title="终端"    { spawn "kitty"; }
+    // 临时开一个浮动终端
+    Mod+Slash hotkey-overlay-title="临时终端 Quick Terminal" {spawn "kitty" "--single-instance" "--class" "quickterminal";}
+    Mod+F12 hotkey-overlay-title=null {spawn "kitty" "--class" "quickterminal";}
+    // 打开yazi
+    Mod+Y hotkey-overlay-title="yazi" { spawn "kitty" "--class" "Yazi" "--" "yazi"; }
+    Mod+A     hotkey-overlay-title="应用启动器"    repeat=false    { spawn "/home/pullautumn/.config/rofi/scripts/launcher_t8"; }
+    Mod+Shift+V     hotkey-overlay-title="剪贴板"  repeat=false    { spawn "bash" "-c" "pkill rofi || /home/pullautumn/.local/share/bin/cliphist-fuzzel-img"; }
+    // 锁屏
+    // Mod+Ctrl+L     hotkey-overlay-title="锁屏"     { spawn "gtklock"; }
+    Mod+Alt+L hotkey-overlay-title="锁屏" { spawn-sh "hyprlock -c ~/.config/niri/hyprlock.conf"; }
+
+	
+    // 文档管理器。如果有nautilus的话会优先打开nautilus，没有的话会打开thunar， "--new-window"参数是允许打开新的窗口
+    Mod+E      hotkey-overlay-title="文件管理器(nautilus)"      { spawn-sh "XDG_CURRENT_DESKTOP=GNOME nautilus --new-window || thunar --new-window"; }
+    Mod+Alt+E      hotkey-overlay-title="文件管理器(thunar)"      { spawn-sh "thunar"; }
+    // 打开浏览器
+    Mod+B     hotkey-overlay-title="浏览器"    { spawn "google-chrome-stable"; }
+    // Example volume keys mappings for PipeWire & WirePlumber.
+    // The allow-when-locked=true property makes them work even when the session is locked.
+    // Using spawn-sh allows to pass multiple arguments together with the command.
+    // 调节音量
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume +5||wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume -5||wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "swayosd-client --output-volume mute-toggle||wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    // Example brightness key mappings for brightnessctl.
+    // You can use regular spawn with multiple arguments too (to avsoid going through "sh"),
+    // but you need to manually put each argument in separate "" quotes.
+    // 调节屏幕亮度
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
+
+    // Open/close the Overview: a zoomed-out view of workspaces and windows.
+    // You can also move the mouse into the top-left hot corner,
+    // or do a four-finger swipe up on a touchpad.
+    // 切换overview总览
+    Mod+O    hotkey-overlay-title="预览模式" repeat=false { toggle-overview; }
+    // 关闭窗口
+    Mod+Q    hotkey-overlay-title="关闭窗口"    { close-window; }
+    Alt+F4 hotkey-overlay-title="关闭窗口" repeat=false { close-window; }
+
+
+    // 切换到第一个colume
+    Mod+Home { focus-column-first; }
+    // 切换到最后一个colume
+    Mod+End  { focus-column-last; }
+    // 移动colume到第一个
+    Mod+Ctrl+Home { move-column-to-first; }
+    // 移动colume到最后一个
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    // 下面的快捷键看着很多很复杂，其实并不难记。
+    // 记住三组方向键，wasd、hjkl和上下左右箭头
+    // 总的来说
+    // super+方向键就是切换聚焦，再加上ctrl就是移动窗口
+    // super+a/d 比较特殊，不是切换聚焦而是左右合并colume（相当于左右移动窗口）
+    // super+shift就是跨显示器，加上ctrl就是移动窗口
+
+    // ==============================切换聚焦==============================
+    // super+方向键
+    Mod+Left    hotkey-overlay-title="向左切换窗口"    { focus-column-left; }
+    Mod+Down    hotkey-overlay-title="向下切换窗口"    { focus-window-down; }
+    Mod+Up      hotkey-overlay-title="向上切换窗口"    { focus-window-up; }
+    Mod+Right   hotkey-overlay-title="向右切换窗口"    { focus-column-right; }
+    // super+vim key
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+    // mod+滚轮上下 左右切换聚焦
+    Mod+WheelScrollUp     hotkey-overlay-title="向左切换窗口"    { focus-column-left; }
+    Mod+WheelScrollDown     hotkey-overlay-title="向右切换窗口"    { focus-column-right; }
+
+    // ==============================移动colume（列）==============================
+    // super+ctrl+方向键
+    Mod+Ctrl+Left    hotkey-overlay-title="将窗口向左移动"    { move-column-left; }
+    Mod+Ctrl+Down    hotkey-overlay-title="将窗口向下移动"    { move-window-down; }
+    Mod+Ctrl+Up      hotkey-overlay-title="将窗口向上移动"    { move-window-up; }
+    Mod+Ctrl+Right   hotkey-overlay-title="将窗口向右移动"    { move-column-right; }
+    // super+ctrl+vimkey
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+    // mod+ctrl+滚轮 左右移动colume
+    Mod+Ctrl+WheelScrollUp    hotkey-overlay-title="将窗口向左移动"    { move-column-left; }
+    Mod+Ctrl+WheelScrollDown    hotkey-overlay-title="将窗口向右移动"    { move-column-right; }
+
+    // ==============================切换工作区==============================
+    // 上下切换工作区
+    Mod+Page_Down hotkey-overlay-title="向下切换工作区"     { focus-workspace-down; }
+    Mod+Page_Up   hotkey-overlay-title="向上切换工作区"     { focus-workspace-up; }
+    Mod+Alt+Down  hotkey-overlay-title="向下切换工作区"     { focus-workspace-down; }
+    Mod+Alt+Up    hotkey-overlay-title="向上切换工作区"     { focus-workspace-up; }
+    Mod+U              { focus-workspace-down; }
+    Mod+I              { focus-workspace-up; }
+    // mod+alt+滚轮 上下切换工作区
+    Mod+Alt+WheelScrollDown     hotkey-overlay-title="向下切换工作区"    { focus-workspace-down; }
+    Mod+Alt+WheelScrollUp     hotkey-overlay-title="向上切换工作区"    { focus-workspace-up; }
+
+
+    // ==============================移动窗口到其他工作区==============================
+    // 上下移动窗口到其他工作区
+    Mod+Ctrl+Page_Down hotkey-overlay-title="将窗口移动到下面工作区" { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   hotkey-overlay-title="将窗口移动到下面工作区" { move-column-to-workspace-up; }
+    Mod+Ctrl+Alt+Down  hotkey-overlay-title="将窗口移动到下面工作区" { move-column-to-workspace-down; }
+    Mod+Ctrl+Alt+Up    hotkey-overlay-title="将窗口移动到下面工作区" { move-column-to-workspace-up; }
+    Mod+Ctrl+U         { move-column-to-workspace-down; }
+    Mod+Ctrl+I         { move-column-to-workspace-up; }
+    Mod+Ctrl+Alt+WheelScrollDown    hotkey-overlay-title="将窗口移动到下面工作区"    { move-column-to-workspace-down; }
+    Mod+Ctrl+Alt+WheelScrollUp    hotkey-overlay-title="将窗口移动到上面工作区"    { move-column-to-workspace-up; }
+    
+    // ==============================切换显示器聚焦==============================
+    // 切换显示器聚焦
+    // mod+shift+方向键
+    Mod+Shift+Left  hotkey-overlay-title="将聚焦切换到左边显示器"  { focus-monitor-left; }
+    Mod+Shift+Down  hotkey-overlay-title="将聚焦切换到下边显示器"  { focus-monitor-down; }
+    Mod+Shift+Up    hotkey-overlay-title="将聚焦切换到上边显示器"  { focus-monitor-up; }
+    Mod+Shift+Right hotkey-overlay-title="将聚焦切换到右边显示器"  { focus-monitor-right; }
+    Mod+Shift+H     { focus-monitor-left; }
+    Mod+Shift+J     { focus-monitor-down; }
+    Mod+Shift+K     { focus-monitor-up; }
+    Mod+Shift+L     { focus-monitor-right; }
+
+    // ==============================移动窗口到其他显示器==============================
+    Mod+Shift+Ctrl+Left  hotkey-overlay-title="将窗口移动到左边显示器"  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down  hotkey-overlay-title="将窗口移动到下边显示器"  { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up    hotkey-overlay-title="将窗口移动到上边显示器"  { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right hotkey-overlay-title="将窗口移动到右边显示器"  { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+
+    // ==============================移动工作区到其他显示器==============================
+    //移动整个工作区
+    // mod+shift跨显示器，alt代表移动整个工作区，再加上三组方向键
+    Mod+Shift+Alt+W  { move-workspace-to-monitor-up; }
+    Mod+Shift+Alt+S  { move-workspace-to-monitor-down; }
+    Mod+Shift+Alt+D  { move-workspace-to-monitor-right; }
+    Mod+Shift+Alt+A  { move-workspace-to-monitor-left; }
+
+    Mod+Shift+Alt+K  { move-workspace-to-monitor-up; }
+    Mod+Shift+Alt+J  { move-workspace-to-monitor-down; }
+    Mod+Shift+Alt+L  { move-workspace-to-monitor-right; }
+    Mod+Shift+Alt+H  { move-workspace-to-monitor-left; }
+
+    Mod+Shift+Alt+Up  { move-workspace-to-monitor-up; }
+    Mod+Shift+Alt+Down  { move-workspace-to-monitor-down; }
+    Mod+Shift+Alt+Right  { move-workspace-to-monitor-right; }
+    Mod+Shift+Alt+Left  { move-workspace-to-monitor-left; }
+
+// ==============================移动整个工作区==============================
+    Mod+Shift+Page_Down hotkey-overlay-title="向下移动整个工作区"  { move-workspace-down; }
+    Mod+Shift+Page_Up   hotkey-overlay-title="向上移动整个工作区"  { move-workspace-up; }
+    Mod+Shift+U         hotkey-overlay-title="向下移动整个工作区"  { move-workspace-down; }
+    Mod+Shift+I         hotkey-overlay-title="向上移动整个工作区"  { move-workspace-up; }
+
+
+    // You can refer to workspaces by index. However, keep in mind that
+    // niri is a dynamic workspace system, so these commands are kind of
+    // "best effort". Trying to refer to a workspace index bigger than
+    // the current workspace count will instead refer to the bottommost
+    // (empty) workspace.
+    //
+    // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
+    // will all refer to the 3rd workspace.
+    // mod+数字切换工作区
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    // 再加上ctrl移动colume
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+
+    // mod+左右方括号 移动窗口（不是移动colume，是允许移动到另一个colume的窗口移动）
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    // 开启colume的标签页模式（同一个colume中的窗口会以类似浏览器标签页的形式堆叠）
+    Mod+Shift+X { toggle-column-tabbed-display; }
+    Mod+X { toggle-column-tabbed-display; }
+    // mod+逗号/句号 把窗口合并或者踢出当前的colume
+    Mod+Comma  { consume-window-into-column; }
+    Mod+Period { expel-window-from-column; }
+
+    // 按照预设切换窗口宽度
+    Mod+R  hotkey-overlay-title="按预设切换宽度 Switch width " { switch-preset-column-width; }
+    // 按照预设切换窗口高度
+    Mod+Shift+R  { switch-preset-window-height; }
+    // 重置窗口高度
+    Mod+Ctrl+R { reset-window-height; }
+    
+    Mod+F    hotkey-overlay-title="当前窗口最大化"    { maximize-column; }
+    Mod+Shift+F    hotkey-overlay-title="当前窗口全屏"     { fullscreen-window; }
+    // 没什么用。增加窗口宽度占满空闲空间
+    Mod+Ctrl+F { expand-column-to-available-width; }
+
+    // mod+加减号调整窗口宽度
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+    // mod+shift+加减号调整窗口高度
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // 切换浮动模式
+    Mod+V    hotkey-overlay-title="当前窗口浮动"    { toggle-window-floating; }
+    Mod+Alt+V hotkey-overlay-title="切换浮动聚焦 Change focus to floating" { switch-focus-between-floating-and-tiling; }
+
+    // 手动切换窗口居中
+    Mod+C    hotkey-overlay-title="切换窗口居中"     { center-column; }  
+
+    // 截图相关
+    Mod+Ctrl+A  hotkey-overlay-title="选取区域截图 Select screenshot"  {spawn-sh "niri msg action screenshot --show-pointer false && pkill -f -USR1 screenshot-sound.sh";}
+    Mod+Alt+A  hotkey-overlay-title="截取聚焦窗口 Focus-window screenshot" { spawn-sh "niri msg action screenshot-window && pkill -f -USR1 screenshot-sound.sh"; }
+    Mod+Alt+Ctrl+A  hotkey-overlay-title="截取显示器 Monitor screenshot" { spawn-sh "niri msg action screenshot-screen --show-pointer false && pkill -f -USR1 screenshot-sound.sh"; }
+
+    // Mod+p hotkey-overlay-title="截图" { spawn-sh "grim -g \"$(slurp)\" - | swappy -f - -o - | wl-copy"; }
+	// Mod+Ctrl+p hotkey-overlay-title="全屏截图" { spawn-sh "grim - | swappy -f - -o - | wl-copy"; }
+    // Mod+P hotkey-overlay-title="截图" { spawn "bash" "-c" "flameshot gui"; }
+    Ctrl+Alt+A hotkey-overlay-title="截图" { spawn-sh "grim -g \"$(slurp)\" - | markpix -f - -o - | wl-copy"; }
+    // Mod+p hotkey-overlay-title="截图" { spawn "bash" "/home/pullautumn/.config/niri/scripts/screenshot.sh"; }
+    // Mod+Alt+p hotkey-overlay-title="录屏" { spawn "bash" "/home/pullautumn/.config/niri/scripts/wf-recorder.sh"; }
+    Print hotkey-overlay-title="截图" { spawn-sh "grim -g \"$(slurp)\" - | satty -f - -o - | wl-copy"; }
+    //Mod+Shift+S { spawn "~/.config/niri/scripts/satty-screenshot.sh";}
+    Mod+Shift+S  hotkey-overlay-title="截图后按下此键进行编辑" { spawn-sh "wl-paste | satty -f -";}
+
+    Ctrl+Alt+Delete hotkey-overlay-title="电源菜单 Powermenu" { spawn "wlogout"; }
+    // Powers off the monitors. To turn them back on, do any input like
+
+    // moving the mouse or pressing any other key.
+    Mod+Alt+P  hotkey-overlay-title="休眠 Turn off monitors" { spawn-sh "niri msg action power-off-monitors && hyprlock && systemctl suspend"; }
+
+    Mod+Shift+E    hotkey-overlay-title="退出桌面"    { quit; }
+    Mod+Ctrl+Shift+Alt+R hotkey-overlay-title="重载配置" {
+		spawn "bash" "-c" "niri msg action load-config-file && notify-send '✅ Niri' '配置已重载'";
+	}
+
+}
+

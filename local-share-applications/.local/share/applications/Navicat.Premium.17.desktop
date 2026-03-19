@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories=Development;Database;
+Comment=Database Development Tool
+Exec=env QT_QPA_PLATFORM=xcb /opt/navicat/navicat17-premium-cs-x86_64.appimage
+Icon=/home/pullautumn/.local/share/icons/hicolor/256x256/apps/Navicat Premium 17.png
+Name=Navicat Premium 17
+StartupNotify=true
+StartupWMClass=Navicat Premium
+Terminal=false
+Type=Application

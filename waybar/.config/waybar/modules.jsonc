@@ -1,0 +1,288 @@
+{
+    //======================== Left ========================
+    "custom/launcher": {
+        "format": "&#8239;",
+        "on-click": "sh -c '/home/pullautumn/.config/rofi/scripts/launcher_t7'",
+        "tooltip-format": "Launcher"
+    },
+    "niri/workspaces": {
+        "format": "{icon}"
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 22,
+        "icon-theme": "Numix-Circle",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close"
+    },
+    "network": {
+        "format": "󰅢 {bandwidthDownBytes} 󰅧 {bandwidthUpBytes}",
+        "format-disconnected": "󰅤 断开",
+        "tooltip-format": "下载: {bandwidthDownBytes}\n上传: {bandwidthUpBytes}",
+        "interval": 1
+    },
+    //截图
+    "custom/screenshot": {
+        "format": "",
+        "tooltip-format": "左键：快速截图（仅保存到剪贴板）\n右键：打开截图菜单\n中键：打开长截图菜单",
+        "on-click": "~/.config/waybar/scripts/screenshot.sh",
+        "on-click-right": "~/.config/waybar/scripts/power-screenshot.sh",
+        "on-click-middle": "~/.config/waybar/scripts/longshot-sh/longshot.sh"
+    },
+    //录屏screenrec
+    "custom/wfrec": {
+        "format": "",
+        "exec": "~/.config/waybar/scripts/screenrec status-json",
+        "return-type": "json",
+        //"interval": 1,                 // 每秒刷新一次
+        "signal": 9, // 与脚本里的 WAYBAR_SIG 对应
+        "tooltip": true,
+        "on-click": "~/.config/waybar/scripts/screenrec toggle", // 左键：开始/停止
+        "on-click-right": "~/.config/waybar/scripts/screenrec stop"
+    },
+    "custom/swayidle-toggle": {
+        "exec": "bash -c 'if [[ -f /tmp/swayidle-disabled ]]; then echo -e \"☕\\n保持唤醒：屏幕常亮，不锁屏\"; else echo -e \"💤\\n允许休眠：5分钟后自动锁屏\"; fi'",
+        "on-click": "bash -c 'if [[ -f /tmp/swayidle-disabled ]]; then rm -f /tmp/swayidle-disabled; systemctl --user start swayidle.service; notify-send \"💤 已恢复锁屏\" \"5分钟后自动息屏\"; echo -e \"💤\\n允许休眠：5分钟后自动锁屏\"; else touch /tmp/swayidle-disabled; systemctl --user stop swayidle.service; notify-send \"☕ 已禁用锁屏\" \"屏幕保持常亮\"; echo -e \"☕\\n保持唤醒：屏幕常亮，不锁屏\"; fi'",
+        "interval": 60,
+        "tooltip": true
+    },
+    "mpris": {
+        "player-icons": {
+            "default": "🎵"
+        },
+        "format": "⏸ {dynamic}",
+        "format-paused": "▶ {dynamic}",
+        "format-stopped": "⏹ Stopped",
+        "interval": 1,
+        "max-length": 70
+    },
+    //======================== Middle ========================
+    "custom/clock": {
+        "exec": "date '+ %d %-m月 周%a %H:%M'",
+        "interval": 60,
+        // "tooltip-format": "{:%Y/%m/%d %A}\n---\n左键：打开时钟\n右键：打开日历",
+        "on-click": "gnome-clocks",
+        "on-click-right": "gnome-calendar"
+    },
+    "clock": {
+        "format": " {:%d %m月 %H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "on-click": "gnome-calendar",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "interval": 60
+    },
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󱅫&#8239;",
+            "none": "󰂚&#8239;",
+            "dnd-notification": " 󱏧<span foreground='#1e1e2e'><sup></sup></span>&#8239;",
+            "dnd-none": "󱏧&#8239;",
+            "inhibited-notification": " 󰂚<span foreground='#1e1e2e'><sup></sup></span>&#8239;",
+            "inhibited-none": "󰂚&#8239;",
+            "dnd-inhibited-notification": " <span foreground='#1e1e2e'><sup></sup></span>&#8239;",
+            "dnd-inhibited-none": "󱏧&#8239;"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+    //======================== Right ========================
+    //隐私
+    "privacy": {
+        "icon-spacing": 10,
+        "icon-size": 14,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            }
+            // {
+            //   "type": "audio-out",
+            //   "tooltip": true,
+            //   "tooltip-icon-size": 24
+            // },
+            // {
+            //   "type": "audio-in",
+            //   "tooltip": true,
+            //   "tooltip-icon-size": 24
+            // }
+        ]
+        // "ignore-monitor": true,
+        // "ignore": [
+        //   {
+        //     "type": "audio-in",
+        //     "name": "cava"
+        //   },
+        //   {
+        //     "type": "screenshare",
+        //     "name": "obs"
+        //   }
+        // ]
+    },
+    "custom/clipboard": {
+        "format": "󰅇",
+        "on-click": "pkill fuzzel || ~/.config/waybar/scripts/cliphist-fuzzel-img",
+        "tooltip-format": "Clipboard"
+    },
+    "cpu": {
+        "interval": 10,
+        "format": " {:.1f}%",
+        "on-click": "kitty -e btop"
+    },
+    "memory": {
+        "states": {
+            "c": 90, // critical
+            "h": 60, // high
+            "m": 30 // medium
+        },
+        "interval": 10,
+        "format": " {used:0.1f}GB",
+        "rotate": 0,
+        // "format-m": "󰾅 {used:0.1f}GB",
+        // "format-h": "󰓅 {used:0.1f}GB",
+        // "format-c": " {used:0.1f}GB",
+        "on-click-right": "󰾆 {percentage}%",
+        "tooltip": true,
+        "tooltip-format": "  {percentage}%\n  {used:0.1f}GB/{total:0.1f}GB",
+        "on-click": "missioncenter"
+    },
+    "custom/temperature": {
+        "exec": "sensors | awk '/^Package id 0:/ {print int($4)}'",
+        "format": "&#8239;{}°C",
+        "interval": 5,
+        "tooltip": true,
+        "tooltip-format": "当前 CPU&#8239;温度: {}°C"
+    },
+    "wireplumber": {
+        "tooltip-format": "左键点击静音扬声器 | 右键点击静音麦克风 | 中键点击打开 Pavucontrol",
+        // 核心修复：格式改为「扬声器图标+音量 + 麦克风状态」，两者都显示
+        "format": "{icon} {volume}% {format_source}",
+        "format-bluetooth": " {volume}% {format_source}",
+        // 扬声器静音时：保留「静音图标 + 麦克风状态」
+        "format-muted": " 0% {format_source}",
+        // 麦克风状态（不变）
+        "format-source": "&#8239;{volume}%",
+        "format-source-muted": " 0%",
+        // 扬声器图标映射（明确音量分段触发）
+        "format-icons": {
+            "headphone": "&#8239;",
+            "bluetooth": "&#8239;",
+            "default": [
+                "&#8239;",
+                "&#8239;",
+                "&#8239;"
+            ] // 用 default 替代 speaker，兼容 WirePlumber 设备识别
+        },
+        // 交互逻辑（滚动改回调节扬声器音量，更符合直觉）
+        "on-click": "swayosd-client --output-volume mute-toggle || wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "swayosd-client --input-volume mute-toggle || wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-middle": "pavucontrol --tab=3",
+        "on-scroll-up": "swayosd-client --output-volume +1 || wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+",
+        "on-scroll-down": "swayosd-client --output-volume -1 || wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-",
+        "scroll-step": 1
+    },
+    // "wireplumber/slider": {
+    //   "min": 0,
+    //   "max": 100,
+    //   "orientation": "horizontal"
+    // },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃞", // 暗 - 深灰
+            "󰃝", // 中 - 灰
+            "󰃟", // 亮 - 柠檬黄
+            "󰃠" // 最亮 - 金色
+        ],
+        "tooltip": true,
+        "tooltip-format": "当前屏幕亮度: {percent}%",
+        "on-scroll-up": "swayosd-client --brightness raise || brightnessctl --class=backlight set +5%",
+        "on-scroll-down": "swayosd-client --brightness lower || brightnessctl --class=backlight set 5%-"
+    },
+    // "battery": {
+    //   "bat": "BAT0",
+    //   "format": "{icon} {capacity}%",
+    //   "format-charging": " {capacity}%",
+    //   "format-full": " {capacity}%",
+    //   "format-plugged": " {capacity}%",
+    //   "format-icons": ["", "", "", "", ""],
+    //   "interval": 2,
+    //   "tooltip": true,
+    //   // 右键切换性能模式（不影响电量显示）
+    //   "on-right-click": "bash -c 'current=$(powerprofilesctl get); case $current in performance) powerprofilesctl set balanced ;; balanced) powerprofilesctl set power-saver ;; power-saver) powerprofilesctl set performance ;; esac'"
+    // },
+    // "custom/battery": {
+    //   "exec": "/home/pullautumn/.local/share/bin/battery",
+    //   "interval": 2,
+    //   "tooltip": true,
+    //   "tooltip-format": "当前电量: {}"
+    // },
+    "battery": {
+        "interval": 2,
+        "states": {
+            "critical": 20
+        },
+        "format": "{icon}&#8239;{capacity}%",
+        "format-charging": "&#8239;{capacity}% ",
+        "format-full": "&#8239;{capacity}%",
+        "format-plugged": "&#8239;{capacity}%",
+        "format-not-charging": "&#8239;{capacity}%",
+        "format-discharging": "{icon}&#8239;{capacity}%",
+        "format-icons": [
+            "&#8239;",
+            "&#8239;",
+            "&#8239;",
+            "&#8239;",
+            "&#8239;",
+            "&#8239;",
+            "&#8239;",
+            "&#8239;",
+            "&#8239;",
+            "&#8239;"
+        ],
+        "tooltip-format": "当前电量: {capacity}%\n充 放 电 ：{power}\n可用时间：{timeTo}\n电池健康度：{health}%"
+    },
+    // 左键循环切换性能模式
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "性能模式:{profile}",
+        "tooltip": true,
+        "format-icons": {
+            "performance": "&#8239;&#8239;",
+            "balanced": "&#8239;&#8239;",
+            "power-saver": "&#8239;&#8239;"
+        }
+    },
+    // "custom/vkeyboard": {
+    //   "format": "󰌌",
+    //   "on-click": "pkill wf-osk || wf-osk --height 200 -a bottom",
+    //   "tooltip-format": "Virtual Keyboard"
+    // },
+    "tray": {
+        "spacing": 4,
+        "icon-size": 25
+    },
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "wlogout -c 15 -b 6 -m 400"
+    }
+}

@@ -1,0 +1,35 @@
+// 环境变量配置
+environment {
+    DISPLAY ":0"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    
+    // ========== 输入法设置 ==========
+    GTK_IM_MODULE "fcitx"
+    QT_IM_MODULE "fcitx"
+    XMODIFIERS "@im=fcitx"
+    
+    // ========== 主题设置（关键修改） ==========
+    // GTK_THEME "Adwaita"                   // 明确设置 GTK 主题
+    QT_QPA_PLATFORMTHEME "gtk4"           // 让 Qt 应用使用 GTK 主题
+    QT_STYLE_OVERRIDE "adwaita"           // Qt 样式
+    
+    // ========== Wayland 相关 ==========
+    QT_QPA_PLATFORM "wayland"
+    MOZ_ENABLE_WAYLAND "1"
+    
+    // ========== 桌面环境标识 ==========
+    XDG_CURRENT_DESKTOP "GNOME"
+    XDG_SESSION_DESKTOP "GNOME"
+    
+    // ========== Java 设置 ==========
+    _JAVA_AWT_WM_NONREPARENTING "1"      // 修正变量名
+    
+    // ========== Xwayland 应用缩放设置 ==========
+    GDK_SCALE "1.5"
+    GDK_DPI_SCALE "1.0"
+    QT_SCALE_FACTOR "1.5"
+    QT_AUTO_SCREEN_SCALE_FACTOR "0"
+    XWAYLAND_SCALE "1.5"
+    XCURSOR_SIZE "24"
+}
+screenshot-path "/home/pullautumn/Pictures/Screenshots/from %Y-%m-%d %H-%M-%S.png"

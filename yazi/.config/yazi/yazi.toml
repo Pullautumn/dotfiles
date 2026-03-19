@@ -1,0 +1,379 @@
+# TOML格式配置文件的头部注释，说明该文件可以通过https://taplo.tamasfe.dev/这样的TOML语法检查工具进行验证
+# 如果遇到问题，可以在https://github.com/yazi-rs/schemas提交issue
+# "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+# 部分被注释掉了，如果取消注释可以设置目录行为
+[manager]
+# 设置回车直接进入目录
+folder_actions = ["enter"]
+# 在右键菜单中显示"在Nautilus中显示"选项
+show_reveal = true
+
+# mgr部分控制文件管理器的基本行为
+[mgr]
+# 界面分割比例，分别为左侧面板、主面板、右侧预览面板的宽度比例
+ratio = [1, 4, 3]
+# 文件排序方式："natural"(自然排序)、"alphabetical"(字母排序)、"size"(大小)、"modified"(修改时间)
+sort_by = "natural"
+# 排序是否区分大小写
+sort_sensitive = false
+# 是否反向排序
+sort_reverse = false
+# 是否优先显示目录
+sort_dir_first = true
+# 是否启用音译排序
+sort_translit = false
+# 行模式显示："none"、"size"、"mtime"等
+linemode = "none"
+# 是否显示隐藏文件
+show_hidden = false
+# 是否显示符号链接
+show_symlink = true
+# 光标距离边缘多少行开始滚动
+scrolloff = 5
+# 启用的鼠标事件："click"、"scroll"
+mouse_events = ["click", "scroll"]
+# 标题栏格式，{cwd}会被替换为当前工作目录
+title_format = "Yazi: {cwd}"
+
+# preview部分控制预览功能的行为
+[preview]
+# 文本换行方式："no"、"yes"、"force"
+wrap = "no"
+# Tab字符显示宽度
+tab_size = 2
+# 图片预览最大宽度
+max_width = 600
+# 图片预览最大高度
+max_height = 900
+# 缓存目录路径
+cache_dir = ""
+# 图片加载延迟（毫秒）
+image_delay = 30
+# 图片缩放滤镜算法
+image_filter = "triangle"
+# 图片质量（1-100）
+image_quality = 75
+# Sixel图像的分辨率分数
+sixel_fraction = 15
+# Ueberzug图像缩放比例
+ueberzug_scale = 1
+# Ueberzug图像偏移量 [left, top, right, bottom]
+ueberzug_offset = [0, 0, 0, 0]
+
+# 手动修改了大量打开的常用软件，orphan使用新的进程打开，block将和yazi同一个进程
+[opener]
+edit = [
+	# 用gnome系统自带的 文本编辑器 打开
+	{ run = 'xdg-open "$1"', desc = "text editor", orphan = true, for = "unix" },
+	# 用 nvim 打开
+	{ run = 'nvim "$1"', desc = "neovim", block = true, for = "unix" },
+	# 用 vscode 打开
+	{ run = 'code "$1"', desc = "vscode", orphan = true, for = "unix" },
+	# 用 nautilus文件管理器 打开
+	{ run = 'XDG_CURRENT_DESKTOP=GNOME nautilus "$(dirname "$1")"', desc = "nautilus", orphan = true, for = "linux" },
+]
+reveal = [
+	# 用 nautilus文件管理器 打开
+	{ run = 'XDG_CURRENT_DESKTOP=GNOME nautilus "%s"', desc = "nautilus", orphan = true, for = "linux" },
+	# 用 vscode 打开
+	{ run = 'code "$1"', desc = "vscode", orphan = true, for = "unix" },
+	# { run = '''clear; exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "EXIF信息", for = "unix" },
+]
+image = [
+	{ run = 'xdg-open "$1"', desc = "系统默认", orphan = true, for = "linux" },
+	{ run = 'gwenview "$1"', desc = "gwenview", orphan = true, for = "linux" },
+	# 用 nautilus文件管理器 打开
+	{ run = 'XDG_CURRENT_DESKTOP=GNOME nautilus "$(dirname "$1")"', desc = "nautilus", orphan = true, for = "linux" },
+]
+play = [
+	{ run = 'xdg-open "$1"', desc = "系统默认", orphan = true, for = "linux" },
+	{ run = 'mpv --force-window "$1"', orphan = true, desc = "mpv", for = "unix" },
+	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "媒体信息", for = "unix" },
+	# 用 nautilus文件管理器 打开
+	{ run = 'XDG_CURRENT_DESKTOP=GNOME nautilus "$(dirname "$1")"', desc = "nautilus", orphan = true, for = "linux" },
+]
+extract = [
+	# { run = 'engrampa "$1"', desc = "engrampa", orphan = true, for = "unix" },
+	# { run = 'ouch decompress "$1"', desc = "ouch解压", orphan = true, for = "unix" },
+	{ run = '7z x "$1"', desc = "7z解压", orphan = true, for = "unix" },
+	# { run = 'peazip "$1"', desc = "peazip", orphan = true, for = "unix" },
+	# { run = 'ya pub extract --list "$1"', desc = "yazi解压", orphan = true, for = "unix" },
+]
+document = [{ run = 'atril "$1"', orphan = true, desc = "atril", for = "unix" }]
+sqlite = [
+	{ run = 'sqlitestudio "$1"', orphan = true, desc = "sqlitestudio", for = "unix" },
+]
+
+# open部分定义文件打开规则
+[open]
+# prepend_rules具有较高优先级的文件打开规则
+prepend_rules = [
+	# 文本类型文件使用edit opener
+	{ mime = "text/*", use = [
+		"edit",
+	] },
+	# JavaScript、JSON、XML、TOML、YAML等配置文件使用edit opener
+	{ mime = "application/{javascript,json,xml,toml,yaml,yml}", use = [
+		"edit",
+	] },
+	# 空文件使用edit opener
+	{ mime = "inode/x-empty", use = [
+		"edit",
+	] },
+	# 特定扩展名的文件使用edit opener
+	{ name = "*.{pem,der,crt,md,txt,log,conf,ini,cpp,h,hpp,rs,py,js,ts,jsx,tsx,html,css,scss,sh,zsh,bash,toml,yaml,yml,json,xml}", use = [
+		"edit",
+	] },
+	# SVG文件使用image opener
+	{ name = "*.{svg}", use = [
+		"image",
+	] },
+	# SQLite数据库文件使用sqlite opener
+	{ mime = "*/sqlite3", use = [
+		"sqlite",
+	] },
+	# Dart文件使用edit opener
+	{ mime = "*.dart", use = [
+		"edit",
+	] },
+	# SQL文件使用edit opener
+	{ mime = "*/sql", use = [
+		"edit",
+	] },
+	# ISO镜像文件使用extract opener
+	{ name = "*.{iso}", use = [
+		"extract",
+	] },
+	# RAR压缩文件使用extract opener
+	{ mime = "*.rar", use = [
+		"extract",
+	] },
+	# PDF文件使用document opener
+	{ mime = "*/pdf", use = [
+		"document",
+	] },
+	# DOC文档使用document opener
+	{ mime = "*/doc", use = [
+		"document",
+	] },
+]
+# rules部分定义常规文件打开规则
+rules = [
+	# 目录使用reveal opener
+	{ url = "*/", use = [
+		"reveal",
+	] },
+	# 文本文件使用edit opener
+	{ mime = "text/*", use = [
+		"edit",
+	] },
+	# 图像文件使用image opener
+	{ mime = "image/*", use = [
+		"image",
+	] },
+	# 音频和视频文件使用play opener
+	{ mime = "{audio,video}/*", use = [
+		"play",
+	] },
+	# 压缩包文件使用extract opener
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [
+		"extract",
+	] },
+	# JSON文件使用edit opener
+	{ mime = "application/{json,ndjson}", use = [
+		"edit",
+	] },
+	# JavaScript文件使用edit opener
+	{ mime = "*/javascript", use = [
+		"edit",
+	] },
+	# 空文件使用edit opener
+	{ mime = "inode/empty", use = [
+		"edit",
+	] },
+	# 被注释掉的后备规则，所有未匹配文件都使用edit opener
+	# { name = "*", use = [ "edit" ] },  # 改为edit
+]
+
+# tasks部分控制后台任务行为
+[tasks]
+# 微任务工作线程数
+micro_workers = 10
+# 宏任务工作线程数
+macro_workers = 10
+# 异常重试次数
+bizarre_retry = 3
+# 图像预分配内存大小（字节）
+image_alloc = 536870912 # 512MB
+# 图像边界限制 [width, height]
+image_bound = [0, 0]
+# 是否禁止预加载
+suppress_preload = false
+
+# git状态插件必备的配置
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*"
+run = "git"
+
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*/"
+run = "git"
+
+# plugin部分控制插件行为
+[plugin]
+# spotters定义文件类型识别规则
+spotters = [
+	{ name = "*/", run = "folder" },
+	# 代码文件使用code识别器
+	{ mime = "text/*", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
+	# 图像文件使用相应识别器
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/*", run = "image" },
+	# 视频文件使用video识别器
+	{ mime = "video/*", run = "video" },
+	# 默认使用file识别器
+	{ name = "*", run = "file" },
+]
+# preloaders定义预加载规则
+preloaders = [
+	# 图像文件预加载规则
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
+	{ mime = "image/*", run = "image" },
+	# 视频文件预加载规则
+	{ mime = "video/*", run = "video" },
+	# PDF文件预加载规则
+	{ mime = "application/pdf", run = "pdf" },
+	# 字体文件预加载规则
+	{ mime = "font/*", run = "font" },
+	{ mime = "application/ms-opentype", run = "font" },
+]
+# 手动定义预览规则（被注释掉的部分）
+# prepend_previewers = [
+# 在这里指定扩展名的预览，第一项name起头
+# { name = "*.md", run = "glow" },
+# { mime = "*.csv", run = "mlr --csv sort -f shape"},
+# { mime = "*.dart", run = "code"},
+# { mime = "*/sql", run = "code"},
+# { mime = "*.rar", run = "archive" },
+
+# Archive previewer
+# { mime = "application/*zip", run = "ouch" },
+# { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", run = "ouch" },
+# ]
+# previewers定义文件预览规则
+previewers = [
+	{ name = "*/", run = "folder" },
+	# 代码文件使用code预览器
+	{ mime = "text/*", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
+	# JSON文件使用json预览器
+	{ mime = "application/{json,ndjson}", run = "json" },
+	# 图像文件使用相应预览器
+	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
+	{ mime = "image/svg+xml", run = "svg" },
+	{ mime = "image/*", run = "image" },
+	# 视频文件使用video预览器
+	{ mime = "video/*", run = "video" },
+	# PDF文件使用pdf预览器
+	{ mime = "application/pdf", run = "pdf" },
+	# 压缩包文件使用archive预览器
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", run = "archive" },
+	{ mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}", run = "archive" },
+	{ name = "*.{AppImage,appimage}", run = "archive" },
+	# 虚拟磁盘/磁盘镜像文件使用archive预览器
+	{ mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}", run = "archive" },
+	{ mime = "application/virtualbox-{vhd,vhdx}", run = "archive" },
+	{ name = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
+	# 字体文件使用font预览器
+	{ mime = "font/*", run = "font" },
+	{ mime = "application/ms-opentype", run = "font" },
+	# 空文件使用empty预览器
+	{ mime = "inode/empty", run = "empty" },
+	# 默认使用file预览器
+	{ name = "*", run = "file" },
+]
+
+# input部分控制输入对话框行为
+[input]
+# 光标是否闪烁
+cursor_blink = false
+
+# cd 输入框配置
+# cd标题
+cd_title = "Change directory:"
+# cd对话框位置："top-left"、"top-center"等
+cd_origin = "top-center"
+# cd对话框偏移量 [x, y, width, height]
+cd_offset = [0, 2, 50, 3]
+
+# create 输入框配置
+create_title = ["Create:", "Create (dir):"]
+create_origin = "top-center"
+create_offset = [0, 2, 50, 3]
+
+# rename 输入框配置
+rename_title = "Rename:"
+rename_origin = "hovered"
+rename_offset = [0, 1, 50, 3]
+
+# filter 输入框配置
+filter_title = "Filter:"
+filter_origin = "top-center"
+filter_offset = [0, 2, 50, 3]
+
+# find 输入框配置
+find_title = ["Find next:", "Find previous:"]
+find_origin = "top-center"
+find_offset = [0, 2, 50, 3]
+
+# search 输入框配置
+search_title = "Search via {n}:"
+search_origin = "top-center"
+search_offset = [0, 2, 50, 3]
+
+# shell 输入框配置
+shell_title = ["Shell:", "Shell (block):"]
+shell_origin = "top-center"
+shell_offset = [0, 2, 50, 3]
+
+# confirm部分控制确认对话框行为
+[confirm]
+# trash确认对话框配置
+trash_title = "Trash {n} selected file{s}?"
+trash_origin = "center"
+trash_offset = [0, 0, 70, 20]
+
+# delete确认对话框配置
+delete_title = "Permanently delete {n} selected file{s}?"
+delete_origin = "center"
+delete_offset = [0, 0, 70, 20]
+
+# overwrite确认对话框配置
+overwrite_title = "Overwrite file?"
+overwrite_content = "Will overwrite the following file:"
+overwrite_origin = "center"
+overwrite_offset = [0, 0, 50, 15]
+
+# quit确认对话框配置
+quit_title = "Quit?"
+quit_content = "The following tasks are still running, are you sure you want to quit?"
+quit_origin = "center"
+quit_offset = [0, 0, 50, 15]
+
+# pick部分控制选择对话框行为
+[pick]
+open_title = "Open with:"
+open_origin = "hovered"
+open_offset = [0, 1, 50, 7]
+
+# which部分控制快捷键显示行为
+[which]
+sort_by = "none"
+sort_sensitive = false
+sort_reverse = false
+sort_translit = false

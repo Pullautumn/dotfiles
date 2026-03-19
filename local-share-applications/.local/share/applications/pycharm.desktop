@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=PyCharm
+Comment=Python IDE for Professional Developers
+Exec=/opt/JetBrains/pycharm/bin/pycharm %U
+Terminal=false
+Type=Application
+Icon=/opt/JetBrains/pycharm/bin/pycharm.png
+StartupWMClass=PyCharm
+Categories=Development;IDE;Programming;Python;
+Keywords=Python;IDE;Code;Development;

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Apifox
+Comment=API 文档、调试、Mock 和测试工具
+Exec=env GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx /opt/Apifox/Apifox.AppImage --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=x11 %U
+Type=Application
+Icon=/opt/Apifox/apifox_logo.png
+Terminal=false
+Categories=Development;Utility;
+StartupNotify=true

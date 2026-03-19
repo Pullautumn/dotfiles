@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CherryStudio
+Comment=Cherry Studio Ai
+Exec=env GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx /opt/cherrystudio/Cherry-Studio-1.7.13-x86_64.AppImage --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=x11 %U
+Type=Application
+Icon=/opt/cherrystudio/cherrystudio-logo.png
+Terminal=false
+Categories=Ai;
+StartupNotify=true

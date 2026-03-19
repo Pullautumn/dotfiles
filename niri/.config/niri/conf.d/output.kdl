@@ -1,0 +1,12 @@
+// 显示器配置
+output "eDP-1" {
+    mode "2560x1440@120"
+    scale 1.5
+    // position x=0 y=0
+}
+
+output "DP-1" {
+    mode "3840x2160"
+    scale 1.5
+    // position x=1463 y=0
+}

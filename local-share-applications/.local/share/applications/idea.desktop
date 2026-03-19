@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=IntelliJ IDEA
+Comment=The Most Intelligent Java IDE
+Exec=/opt/JetBrains/idea/bin/idea %U
+Terminal=false
+Type=Application
+Icon=/opt/JetBrains/idea/bin/idea.png
+StartupWMClass=jetbrains-idea
+Categories=Development;IDE;Programming;Java;
+Keywords=Java;IDE;Code;Development;IntelliJ;

@@ -1,0 +1,49 @@
+{
+    "include": [
+        "modules.jsonc",
+        "modules-dividers.jsonc"
+    ],
+    //======================== Style ========================
+    "layer": "top",
+    "position": "top",
+    "spacing": 1,
+    "height": 43,
+    "reload_style_on_change": true,
+    "exclusive": true,
+    "fixed-center": true,
+    //======================== Modules ========================
+    "modules-left": [
+        "custom/launcher",
+        "niri/workspaces",
+        "wlr/taskbar",
+        "network",
+        "custom/screenshot",
+        "custom/wfrec",
+        "custom/swayidle-toggle",
+        "mpris"
+    ],
+    "modules-center": [
+        //"privacy",
+        // "mpris",
+        // "clock",
+        "custom/clock",
+        "custom/notification"
+    ],
+    "modules-right": [
+        "privacy",
+        // "idle_inhibitor",
+        // "group/misc",
+        "custom/clipboard",
+        "cpu",
+        "memory",
+        "custom/temperature",
+        // "custom/vkeyboard",
+        "wireplumber",
+        "backlight",
+        // "custom/battery",
+        "battery",
+        "power-profiles-daemon",
+        "tray",
+        "custom/power"
+    ]
+}

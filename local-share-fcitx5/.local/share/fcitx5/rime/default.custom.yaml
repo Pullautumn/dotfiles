@@ -1,0 +1,59 @@
+patch:
+  __include: rime_ice_suggestion:/
+  
+  ascii_composer:
+    # good_old_caps_lock:
+    # true   切换大写
+    # false  切换中英
+    good_old_caps_lock: false  # 启用 Caps_Lock 切换中英文/大小写
+    switch_key:
+      Caps_Lock: toggle_case        # 按 Caps_Lock 清除大写状态并切回中文
+      Shift_L: commit_code          # 切换中英文 且 上屏英文
+      Shift_R: noop                 # 禁用右 Shift 切换
+      Control_L: noop               # 禁用左 Ctrl
+
+  schema_list:
+    - schema: rime_ice		  # 雾凇拼音
+    - schema: rime_frost		# 白霜拼音
+  
+  menu/page_size: 9			    # 候选词个数
+
+  # 修改选词快捷键
+  key_binder:
+    bindings:
+      # 数字键选词 1-9
+      - { when: has_menu, accept: "1", send: 1 }
+      - { when: has_menu, accept: "2", send: 2 }
+      - { when: has_menu, accept: "3", send: 3 }
+      - { when: has_menu, accept: "4", send: 4 }
+      - { when: has_menu, accept: "5", send: 5 }
+      - { when: has_menu, accept: "6", send: 6 }
+      - { when: has_menu, accept: "7", send: 7 }
+      - { when: has_menu, accept: "8", send: 8 }
+      - { when: has_menu, accept: "9", send: 9 }
+      
+      # 方向键选词
+      - { when: has_menu, accept: "Left", send: Up }
+      - { when: has_menu, accept: "Right", send: Down }
+      # Tab 和 Shift+Tab 选词
+      - { when: has_menu, accept: "Tab", send: Down }
+      # - { when: has_menu, accept: "Shift+Tab", send: Up }
+      
+      # 方向键翻页
+      - { when: has_menu, accept: "Up", send: Page_Up }
+      - { when: has_menu, accept: "Down", send: Page_Down }
+      # 翻页 , .
+      - { when: has_menu, accept: "comma", send: Page_Up }
+      - { when: has_menu, accept: "period", send: Page_Down }
+      # 翻页 [ ]
+      # - { when: has_menu, accept: "bracketleft", send: Page_Up }
+      # - { when: has_menu, accept: "bracketright", send: Page_Down }
+      
+      # 空格选择第一个候选
+      # - { when: has_menu, accept: "space", send: 1 }
+  # 新增：Wayland下强制CapsLock作为大小写切换键（关键补充）
+  'style@/':
+    ascii_mode: false
+    full_shape: false
+  'punctuator@/':
+    import_preset: default

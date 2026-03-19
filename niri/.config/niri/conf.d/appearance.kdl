@@ -1,0 +1,12 @@
+// 外观配置
+animations {
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+}
+
+// 隐藏窗口标题栏
+prefer-no-csd

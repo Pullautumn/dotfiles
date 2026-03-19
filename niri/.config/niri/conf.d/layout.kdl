@@ -1,0 +1,45 @@
+// 布局配置
+layout {
+
+    gaps 8
+	
+	// center-focused-column "always"
+    center-focused-column "never"
+
+    default-column-width { proportion 0.8; }
+    
+    preset-column-widths {
+    		proportion 0.2
+    		proportion 0.5
+    		proportion 0.6
+    		proportion 0.8
+    		proportion 1.0
+    }
+    
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+    // If you leave the brackets empty, the windows themselves will decide their initial width.
+    // default-column-width {}
+
+    // By default focus ring and border are rendered as a solid background rectangle
+    // behind windows. That is, they will show up through semitransparent windows.
+    // This is because windows using client-side decorations can have an arbitrary shape.
+    //
+    // If you don't like that, you should uncomment `prefer-no-csd` below.
+    // Niri will draw focus ring and border *around* windows that agree to omit their
+    // client-side decorations.
+    //
+    // Alternatively, you can override it with a window rule called
+    // `draw-border-with-background`.
+
+    focus-ring {
+        width 3
+        active-color "#6969ff"
+        inactive-color "#11111b"
+    }
+}

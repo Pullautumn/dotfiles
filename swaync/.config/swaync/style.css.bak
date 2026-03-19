@@ -1,0 +1,11 @@
+window#notification-center {
+    background-color: rgba(30, 30, 46, 0.85); /* 背景色 + 透明度 */
+    border-radius: 12px;
+    margin: 10px;
+    padding: 10px;
+}
+
+window#notification-popover {
+    background-color: rgba(30, 30, 46, 0.9); /* 单条通知弹窗透明度 */
+    border-radius: 10px;
+}

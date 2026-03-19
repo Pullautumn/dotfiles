@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=文本转JSON工具
+Comment=快速把 浏览器对象 输出转为 JSON
+Exec=/opt/file-converter/file-converter
+Icon=preferences-system-windows
+Terminal=false
+Type=Application
+Categories=Utility;Development;
