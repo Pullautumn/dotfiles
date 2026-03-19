@@ -89,6 +89,6 @@ for attempt in 1 2 3; do
 done
 
 # 4. 运行安装
-cd "$TARGET_DIR/setup"
+cd "$TARGET_DIR"
 printf "Starting installer...\n"
-sudo bash install.sh < /dev/tty
+sudo bash "$TARGET_DIR/install.sh" < /dev/tty
