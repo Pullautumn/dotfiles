@@ -1,7 +1,6 @@
 {
     "include": [
-        "modules.jsonc",
-        "modules-dividers.jsonc"
+        "modules.jsonc"
     ],
     //======================== Style ========================
     "layer": "top",
