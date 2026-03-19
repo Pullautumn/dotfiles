@@ -368,6 +368,9 @@ prepare_repository() {
         chown -R "$TARGET_USER:" "$DOTFILES_REPO"
         as_user git -C "$DOTFILES_REPO" branch --set-upstream-to=origin/main main
         as_user git config --global --add safe.directory "$DOTFILES_REPO"
+        # 删除不需要的文件夹
+        log "Removing unnecessary directories..."
+        rm -rf "$DOTFILES_REPO/wallpapers"
         success "Repository cloned."
     fi
 }
