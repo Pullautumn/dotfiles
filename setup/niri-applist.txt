@@ -41,7 +41,7 @@ wlogout                                  # 电源管理菜单
 #AUR:clipsync-git                        # X11 <-> Wayland 剪贴板同步
 #AUR:shorinclip-git                      # 自制剪贴板 TUI
 AUR:ddcutil-service                      # 外接显示器硬件亮度控制服务
-#AUR:matugen                             # Material You 主题色生成器
+AUR:matugen                             # Material You 主题色生成器
 AUR:python-pywalfox                      # Firefox Pywal 支持
 AUR:ttf-jetbrains-maple-mono-nf-xx-xx    # Maple Mono NF 字体
 AUR:ttf-lxgw-wenkai-screen               # 霞鹜文楷屏幕版字体
