@@ -1,0 +1,319 @@
+/* ===== 全局颜色 ===== */
+* {
+    color: #1e1e2e;
+}
+
+/* ===== 背景栏颜色 ===== */
+window#waybar {
+    background-color: rgba(17, 17, 27, 0.5);
+}
+
+/* ===== 工具提示颜色 ===== */
+tooltip {
+    background: #1e1e2e;
+    border: 1px solid #6969ff;
+}
+
+tooltip label {
+    color: #b4befe;
+}
+
+#tray menu label {
+    color: #b4befe;
+}
+
+/* ===== 工作区颜色 ===== */
+#workspaces button {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+}
+
+#workspaces button.active {
+    color: #1e1e2e;
+    background-color: #6969ff;
+}
+
+#workspaces button:hover {
+    color: #1e1e2e;
+    background-color: #cdd6f4;
+}
+
+#workspaces button.urgent {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+/* ===== 任务栏颜色 ===== */
+#wlr-taskbar,
+#taskbar {
+    background-color: #303050;
+}
+
+#wlr-taskbar button,
+#taskbar button {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+}
+
+#wlr-taskbar button.active,
+#taskbar button.active {
+    background-color: #6969ff;
+    color: #1e1e2e;
+}
+
+#wlr-taskbar button:hover,
+#taskbar button:hover {
+    background-color: #5555aa;
+    color: #1e1e2e;
+}
+
+/* ===== 各模块颜色 ===== */
+#custom-launcher {
+    background-color: #fab387;
+}
+
+#custom-temperature {
+    background-color: #f9e2af;
+}
+
+#custom-temperature.critical {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+#power-profiles-daemon {
+    background-color: #cba6f7;
+}
+
+#power-profiles-daemon.performance {
+    background-color: #f38ba8;
+}
+
+#power-profiles-daemon.balanced {
+    background-color: #89dceb;
+}
+
+#power-profiles-daemon.power-saver {
+    background-color: #a6e3a1;
+}
+
+#network {
+    background-color: #94e2d5;
+}
+
+#network.disconnected {
+    background-color: #f38ba8;
+}
+
+#mpris {
+    background-color: #eba0ac;
+}
+
+#privacy {
+    background-color: #ff0000;
+}
+
+#custom-clock {
+    background-color: #89dceb;
+}
+
+#custom-notification {
+    background-color: #cba6f7;
+}
+
+#custom-battery {
+    background-color: #a6e3a1;
+}
+
+#custom-battery.warning:not(.charging) {
+    background-color: #f9e2af;
+}
+
+#custom-battery.critical:not(.charging) {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+#custom-screenshot {
+    background-color: #f5c2e7;
+    color: #1e1e2e;
+}
+
+#custom-screenshot:hover {
+    background-color: #eba0ac;
+    color: #1e1e2e;
+}
+
+#custom-wfrec {
+    background-color: #a6e3a1;
+    color: #1e1e2e;
+}
+
+#custom-wfrec.recording {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+#custom-wfrec:hover {
+    background-color: #fab387;
+    color: #1e1e2e;
+}
+
+#battery {
+    background-color: #a6e3a1;
+}
+
+#battery.warning:not(.charging) {
+    background-color: #f9e2af;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+#pulseaudio {
+    background-color: #89b4fa;
+}
+
+#pulseaudio.muted {
+    background-color: #f38ba8;
+}
+
+#wireplumber {
+    background-color: #89b4fa;
+}
+
+#wireplumber.muted {
+    background-color: #f38ba8;
+}
+
+#wireplumber.source-muted {
+    background-color: #f38ba8;
+}
+
+#cpu {
+    background-color: #b58723;
+}
+
+#memory {
+    background-color: #09ab11;
+}
+
+#backlight {
+    background-color: #f9e2af;
+    color: #1e1e2e;
+}
+
+#backlight.low {
+    background-color: #1e1e2e;
+    color: #f9e2af;
+}
+
+#backlight.medium {
+    background-color: #a6adc8;
+    color: #1e1e2e;
+}
+
+#backlight.high {
+    background-color: #f9e2af;
+    color: #1e1e2e;
+}
+
+#backlight.full {
+    background-color: #f5e0dc;
+    color: #1e1e2e;
+}
+
+#custom-power {
+    background-color: #fa5371;
+}
+
+#workspaces {
+    background-color: #45475a;
+}
+
+#workspaces button label {
+    color: #b4befe;
+}
+
+#workspaces button.active label {
+    color: #1e1e2e;
+}
+
+#workspaces button:hover {
+    color: rgba(0, 0, 0, 0);
+}
+
+#idle_inhibitor,
+#custom-swayidle-toggle,
+#custom-vkeyboard {
+    background-color: #11111b;
+    color: #cdd6f4;
+}
+
+#custom-clipboard {
+    background-color: #11111b;
+    color: #cdd6f4;
+}
+
+#custom-clock tooltip {
+    background: #1e1e2e;
+    border: 1px solid #6969ff;
+}
+
+#custom-clock tooltip label {
+    color: #b4befe;
+}
+
+#tray {
+    background-color: #7c7ce2;
+}
+
+/* ===== 悬停颜色 ===== */
+#custom-launcher:hover,
+#cpu:hover,
+#memory:hover,
+#custom-system-info:hover,
+#custom-temperature:hover,
+#network:hover,
+#custom-swayidle-toggle:hover,
+#mpris:hover,
+#privacy:hover,
+#custom-clock:hover,
+#custom-notification:hover,
+#wireplumber:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#custom-clipboard:hover,
+#custom-battery:hover,
+#battery:hover,
+#power-profiles-daemon:hover,
+#custom-power:hover {
+    background-color: #252535;
+    color: #cdd6f4;
+}
+
+/* ===== 动画颜色 ===== */
+#custom-battery.critical {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+@keyframes blink {
+    to {
+        color: #1e1e2e;
+    }
+}
+
+#memory.medium {
+    background-color: #f9e2af;
+}
+
+#memory.high {
+    background-color: #fab387;
+}
+
+#memory.critical {
+    background-color: #f38ba8;
+}

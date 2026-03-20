@@ -1,0 +1,70 @@
+* {
+    color: #1e1e2e;
+}
+
+window {
+    background-color: rgba(30, 30, 46, 0.8);
+}
+
+button {
+    background-color: #313244;
+}
+
+button:active,
+button:hover {
+    text-shadow: 0 0 1px #1e1e2e;
+}
+
+#lock {
+    background-color: #89b4fa;
+    color: #1e1e2e;
+}
+
+#lock:hover {
+    background-color: #74c7ec;
+}
+
+#logout {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+}
+
+#logout:hover {
+    background-color: #f5c2e7;
+}
+
+#suspend {
+    background-color: #89dceb;
+    color: #1e1e2e;
+}
+
+#suspend:hover {
+    background-color: #74c7ec;
+}
+
+#hibernate {
+    background-color: #94e2d5;
+    color: #1e1e2e;
+}
+
+#hibernate:hover {
+    background-color: #a6e3a1;
+}
+
+#shutdown {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+#shutdown:hover {
+    background-color: #f7768e;
+}
+
+#reboot {
+    background-color: #fab387;
+    color: #1e1e2e;
+}
+
+#reboot:hover {
+    background-color: #f9e2af;
+}

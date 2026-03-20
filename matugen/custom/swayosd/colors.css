@@ -1,0 +1,18 @@
+.notification {
+    background: rgba(30, 30, 46, 0.85) !important;
+}
+
+.notification-content label,
+.notification-content .body,
+.notification-content .summary {
+    color: #e0e0e0 !important;
+}
+
+.close-button {
+    color: #b0b0b0 !important;
+}
+
+.close-button:hover {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}

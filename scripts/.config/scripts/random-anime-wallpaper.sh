@@ -142,7 +142,7 @@ swww img "$FINAL_PATH" --transition-duration 2 --transition-type center --transi
 # --- 4. 钩子与清理 ---
 (
     # 钩子脚本屏蔽标准输出，保留报错
-    [ -x "$HOME/.config/scripts/generate_hyprlock_wallpaper.sh" ] && "$HOME/.config/scripts/generate_hyprlock_wallpaper.sh" "$FINAL_PATH" > /dev/null
+    [ -x "$HOME/.config/scripts/matugen-update.sh" ] && "$HOME/.config/scripts/matugen-update.sh" "$FINAL_PATH" > /dev/null
     
     sleep 0.5
     

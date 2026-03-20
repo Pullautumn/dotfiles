@@ -1,0 +1,80 @@
+{
+    // Trae 插件
+    "trae.tab.enableRename": false,
+    "trae.tab.enableAutoImport": false,
+    "trae.chatLanguage": "cn",
+    // Git
+    "git.ignoreMissingGitWarning": true,
+    // 编辑器
+    "editor.fontLigatures": false,
+    "editor.fontWeight": "normal",
+    "editor.fontFamily": "'JetBrains Mono', monospace",
+    "editor.mouseWheelZoom": true,
+    "editor.stickyScroll.enabled": false,
+    "editor.codeActionsOnSave": {},
+    "files.autoSave": "afterDelay",
+    // 主题
+    "workbench.activityBar.location": "top",
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.iconTheme": "material-icon-theme",
+    // Python
+    "python-envs.pythonProjects": [],
+    "python.defaultInterpreterPath": "/home/pullautumn/Code/Python/.venv/bin/python",
+    // "python.terminal.activateEnvironment": true,
+    // Run Code 插件
+    "code-runner.executorMap": {
+        "python": "cd $dir && $pythonPath $fileName",
+        // "javascript": "/home/pullautumn/.nvm/versions/node/v22.21.1/bin/node"
+    },
+    "code-runner.respectShebang": false,
+    "code-runner.ignoreSelection": true,
+    "code-runner.preserveFocus": false,
+    // "code-runner.runInTerminal": true,
+    // 终端
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.inheritEnv": true,
+    // 调试
+    "debug.javascript.autoAttachFilter": "disabled",
+    "claudeCode.preferredLocation": "panel",
+    "security.workspace.trust.untrustedFiles": "open",
+    "codingcopilot.enableCompletionLanguage": {
+        "scminput": false
+    },
+    "codingcopilot.generationPreference": "intelligentMode",
+    "codingcopilot.commitMessageStyle": "Auto",
+    "codingcopilot.taskList": false,
+    // clangd
+    // ========== 禁用VSCode自带的C/C++补全，彻底交给clangd ==========
+    "C_Cpp.intelliSenseEngine": "Disabled",
+    "C_Cpp.autocomplete": "Disabled",
+    "C_Cpp.formatting": "Disabled",
+    // ========== clangd 插件 全局优化配置 ==========
+    "clangd.enabled": true,
+    // clangd启动参数，优化补全速度和功能
+    "clangd.arguments": [
+        "--background-index", // 后台建立索引，补全更快
+        "--header-insertion=iwyu", // 自动补全头文件
+        "--header-insertion-decorators",
+        "--malloc-trim",
+        "--clang-tidy", // 实时代码检查，提示潜在bug
+        "--enable-config" // clangd18+必加，开启配置加载（保留，这个参数是有效的！）
+    ],
+    // clangd 优先级高于其他语言服务器
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "[c]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+        "editor.formatOnSave": true
+    },
+    // ========== C语言文件关联，识别所有.c文件 ==========
+    "files.associations": {
+        "*.c": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "stdint.h": "c",
+        "stdbool.h": "c"
+    },
+    // 指定 clangd 二进制路径（Arch 默认在此）
+    "clangd.path": "/usr/bin/clangd"
+}

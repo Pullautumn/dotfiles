@@ -1,0 +1,12 @@
+layout{
+    focus-ring{
+        active-color "#6969ff"
+        inactive-color "#11111b"
+    }
+}
+recent-windows {    
+    highlight {
+        active-color "#999999ff"
+        urgent-color "#ff9999ff"
+    }
+}

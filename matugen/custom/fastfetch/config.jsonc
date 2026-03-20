@@ -1,0 +1,146 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/fastfetch/logo/laffey.txt",
+    "height": 18,
+    "padding": {
+      "top": 5
+    }
+  },
+  "display": {
+    "color": {
+      "separator": "blue"
+    },
+    "separator": " | "
+  },
+  "modules": [
+    "break",
+    "break",
+    {
+      "type": "kernel",
+      "key": "    PullautumnArch  ",
+      "keyColor": "magenta",
+      "format": "{1} {2}"
+    },
+    {
+      "type": "custom",
+      "format": ">-----------<+>------------------------------------------<",
+      "outputColor": "separator"
+    },
+    {
+      "type": "host",
+      "key": "  MRB      ",
+      "keyColor": "cyan",
+      "format": "{1}"
+    },
+    {
+      "type": "memory",
+      "key": "  RAM      ",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "cpu",
+      "key": "󰍛  CPU      ",
+      "showPeCoreCount": true,
+      "keyColor": "cyan"
+    },
+    {
+      "type": "gpu",
+      "key": "󰍛  GPU      ",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "disk",
+      "key": "󰉉  SSD      ",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "custom",
+      "format": ">-----------<+>------------------------------------------<",
+      "outputColor": "separator"
+    },
+    {
+      "type": "wmtheme",
+      "key": "󰉼  Theme    ",
+      "keyColor": "green"
+    },
+    {
+      "type": "shell",
+      "key": "  Shell    ",
+      "keyColor": "green"
+    },
+    {
+      "type": "lm",
+      "key": "  Lockscr  ",
+      "keyColor": "green"
+    },
+    {
+      "type": "wm",
+      "key": "  Session  ",
+      "keyColor": "green"
+    },
+    {
+      "type": "terminal",
+      "key": "  Terminal ",
+      "keyColor": "green"
+    },
+    {
+      "type": "de",
+      "key": "  Desktop  ",
+      "keyColor": "green"
+    },
+    {
+      "type": "packages",
+      "key": "󰏖  Packages ",
+      "keyColor": "green"
+    },
+    {
+      "type": "gpu",
+      "key": "󰍛  G-Driver ",
+      "format": "{3}",
+      "keyColor": "green"
+    },
+    {
+      "type": "display",
+      "key": "   Display ",
+      "keyColor": "green",
+      "format": "{1}x{2}@{3}Hz @{12}in [{7}]"
+    },
+    {
+      "type": "custom",
+      "format": ">-----------<+>------------------------------------------<",
+      "outputColor": "separator"
+    },
+    {
+      "type": "wifi",
+      "key": "  Wifi     ",
+      "keyColor": "blue",
+      "format": "{4}-{2}:{3}-{7}-@{13}GHz"
+    },
+    {
+      "type": "battery",
+      "key": "  Battery  ",
+      "keyColor": "blue"
+    },
+    {
+      "type": "disk",
+      "key": "󰅐  OS Age   ",
+      "keyColor": "blue",
+      "folders": "/",
+      "format": "{days} days"
+    },
+    {
+      "type": "uptime",
+      "key": "󰅐  Uptime   ",
+      "keyColor": "blue"
+    },
+    {
+      "type": "custom",
+      "format": ">-----------<+>------------------------------------------<",
+      "outputColor": "separator"
+    },
+    "break",
+    "break"
+  ]
+}

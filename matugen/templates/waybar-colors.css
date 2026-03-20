@@ -1,0 +1,320 @@
+/* ===== 全局颜色 ===== */
+* {
+    color: {{colors.on_surface.default.hex}};
+}
+
+/* ===== 背景栏颜色 ===== */
+window#waybar {
+    background-color: {{colors.surface.default.hex}};
+}
+
+/* ===== 工具提示颜色 ===== */
+tooltip {
+    background: {{colors.surface_container.default.hex}};
+    border: 1px solid {{colors.primary.default.hex}};
+}
+
+tooltip label {
+    color: {{colors.primary.default.hex}};
+}
+
+#tray menu label {
+    color: {{colors.primary.default.hex}};
+}
+
+/* ===== 工作区颜色 ===== */
+#workspaces button {
+    background-color: {{colors.surface_container.default.hex}};
+    color: {{colors.on_surface.default.hex}};
+}
+
+#workspaces button.active {
+    color: {{colors.on_primary.default.hex}};
+    background-color: {{colors.primary.default.hex}};
+}
+
+#workspaces button:hover {
+    color: {{colors.on_surface.default.hex}};
+    background-color: {{colors.surface_container_high.default.hex}};
+}
+
+#workspaces button.urgent {
+    background-color: {{colors.error.default.hex}};
+    color: {{colors.on_error.default.hex}};
+}
+
+/* ===== 任务栏颜色 ===== */
+#wlr-taskbar,
+#taskbar {
+    background-color: {{colors.surface_container_low.default.hex}};
+}
+
+#wlr-taskbar button,
+#taskbar button {
+    background-color: {{colors.surface_container.default.hex}};
+    color: {{colors.on_surface.default.hex}};
+}
+
+#wlr-taskbar button.active,
+#taskbar button.active {
+    background-color: {{colors.primary.default.hex}};
+    color: {{colors.on_primary.default.hex}};
+}
+
+#wlr-taskbar button:hover,
+#taskbar button:hover {
+    background-color: {{colors.primary_container.default.hex}};
+    color: {{colors.on_primary_container.default.hex}};
+}
+
+/* ===== 各模块颜色 ===== */
+#custom-launcher {
+    background-color: {{colors.tertiary.default.hex}};
+}
+
+#custom-temperature {
+    background-color: {{colors.tertiary_container.default.hex}};
+}
+
+#custom-temperature.critical {
+    background-color: {{colors.error.default.hex}};
+    color: {{colors.on_error.default.hex}};
+}
+
+#power-profiles-daemon {
+    background-color: {{colors.secondary.default.hex}};
+}
+
+#power-profiles-daemon.performance {
+    background-color: {{colors.error.default.hex}};
+}
+
+#power-profiles-daemon.balanced {
+    background-color: {{colors.tertiary.default.hex}};
+}
+
+#power-profiles-daemon.power-saver {
+    background-color: {{colors.secondary_container.default.hex}};
+}
+
+#network {
+    background-color: {{colors.tertiary.default.hex}};
+}
+
+#network.disconnected {
+    background-color: {{colors.error.default.hex}};
+}
+
+#mpris {
+    background-color: {{colors.secondary.default.hex}};
+}
+
+#privacy {
+    background-color: {{colors.error.default.hex}};
+}
+
+#custom-clock {
+    background-color: {{colors.tertiary.default.hex}};
+}
+
+#custom-notification {
+    background-color: {{colors.secondary.default.hex}};
+}
+
+#custom-battery {
+    background-color: {{colors.secondary_container.default.hex}};
+}
+
+#custom-battery.warning:not(.charging) {
+    background-color: {{colors.tertiary_container.default.hex}};
+}
+
+#custom-battery.critical:not(.charging) {
+    background-color: {{colors.error.default.hex}};
+    color: {{colors.on_error.default.hex}};
+}
+
+#custom-screenshot {
+    background-color: {{colors.primary_container.default.hex}};
+    color: {{colors.on_primary_container.default.hex}};
+}
+
+#custom-screenshot:hover {
+    background-color: {{colors.primary.default.hex}};
+    color: {{colors.on_primary.default.hex}};
+}
+
+#custom-wfrec {
+    background-color: {{colors.secondary_container.default.hex}};
+    color: {{colors.on_secondary_container.default.hex}};
+}
+
+#custom-wfrec.recording {
+    background-color: {{colors.error.default.hex}};
+    color: {{colors.on_error.default.hex}};
+}
+
+#custom-wfrec:hover {
+    background-color: {{colors.tertiary.default.hex}};
+    color: {{colors.on_tertiary.default.hex}};
+}
+
+#battery {
+    background-color: {{colors.secondary_container.default.hex}};
+}
+
+#battery.warning:not(.charging) {
+    background-color: {{colors.tertiary_container.default.hex}};
+}
+
+#battery.critical:not(.charging) {
+    background-color: {{colors.error.default.hex}};
+    color: {{colors.on_error.default.hex}};
+}
+
+#pulseaudio {
+    background-color: {{colors.primary.default.hex}};
+}
+
+#pulseaudio.muted {
+    background-color: {{colors.error.default.hex}};
+}
+
+#wireplumber {
+    background-color: {{colors.primary.default.hex}};
+}
+
+#wireplumber.muted {
+    background-color: {{colors.error.default.hex}};
+}
+
+#wireplumber.source-muted {
+    background-color: {{colors.error.default.hex}};
+}
+
+#cpu {
+    background-color: {{colors.tertiary_container.default.hex}};
+}
+
+#memory {
+    background-color: {{colors.secondary_container.default.hex}};
+}
+
+#backlight {
+    background-color: {{colors.tertiary_container.default.hex}};
+    color: {{colors.on_tertiary_container.default.hex}};
+}
+
+#backlight.low {
+    background-color: {{colors.surface.default.hex}};
+    color: {{colors.tertiary.default.hex}};
+}
+
+#backlight.medium {
+    background-color: {{colors.surface_container_high.default.hex}};
+    color: {{colors.on_surface.default.hex}};
+}
+
+#backlight.high {
+    background-color: {{colors.tertiary_container.default.hex}};
+    color: {{colors.on_tertiary_container.default.hex}};
+}
+
+#backlight.full {
+    background-color: {{colors.tertiary.default.hex}};
+    color: {{colors.on_tertiary.default.hex}};
+}
+
+#custom-power {
+    background-color: {{colors.error.default.hex}};
+}
+
+#workspaces {
+    background-color: {{colors.surface_container_low.default.hex}};
+}
+
+#workspaces button label {
+    color: {{colors.primary.default.hex}};
+}
+
+#workspaces button.active label {
+    color: {{colors.on_primary.default.hex}};
+}
+
+#workspaces button:hover {
+    color: rgba(0, 0, 0, 0);
+}
+
+#idle_inhibitor,
+#custom-swayidle-toggle,
+#custom-vkeyboard {
+    background-color: {{colors.surface.default.hex}};
+    color: {{colors.on_surface.default.hex}};
+}
+
+#custom-clipboard {
+    background-color: {{colors.surface.default.hex}};
+    color: {{colors.on_surface.default.hex}};
+}
+
+#custom-clock tooltip {
+    background: {{colors.surface_container.default.hex}};
+    border: 1px solid {{colors.primary.default.hex}};
+}
+
+#custom-clock tooltip label {
+    color: {{colors.primary.default.hex}};
+}
+
+#tray {
+    background-color: {{colors.primary_container.default.hex}};
+}
+
+/* ===== 悬停颜色 ===== */
+#custom-launcher:hover,
+#cpu:hover,
+#memory:hover,
+#custom-system-info:hover,
+#custom-temperature:hover,
+#network:hover,
+#custom-swayidle-toggle:hover,
+#mpris:hover,
+#privacy:hover,
+#custom-clock:hover,
+#custom-notification:hover,
+#wireplumber:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#custom-clipboard:hover,
+#custom-battery:hover,
+#battery:hover,
+#power-profiles-daemon:hover,
+#custom-power:hover {
+    background-color: {{colors.surface_container_highest.default.hex}};
+    color: {{colors.on_surface.default.hex}};
+}
+
+/* ===== 动画颜色 ===== */
+#custom-battery.critical {
+    background-color: {{colors.error.default.hex}};
+    color: {{colors.on_error.default.hex}};
+}
+
+@keyframes blink {
+    to {
+        color: {{colors.on_error.default.hex}};
+    }
+}
+
+#memory.medium {
+    background-color: {{colors.tertiary_container.default.hex}};
+}
+
+#memory.high {
+    background-color: {{colors.tertiary.default.hex}};
+}
+
+#memory.critical {
+    background-color: {{colors.error.default.hex}};
+}
+EOF

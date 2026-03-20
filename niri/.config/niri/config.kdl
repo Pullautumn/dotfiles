@@ -22,6 +22,7 @@ include "conf.d/environment.kdl"
 include "conf.d/autostart.kdl"
 include "conf.d/window-rules.kdl"
 include "conf.d/binds.kdl"
-
+// 这是include进来的颜色文件，主要设置了窗口边框
+include "conf.d/colors.kdl"
 
 
