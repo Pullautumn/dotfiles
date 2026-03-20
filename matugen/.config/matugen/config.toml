@@ -32,10 +32,14 @@ input_path = '~/.config/matugen/templates/hyprland-colors.conf'
 output_path = '~/.cache/matugen/hypr/colors.conf'
 pre_hook = 'mkdir -p ~/.cache/matugen/hypr/'
 
+# [templates.kitty]
+# input_path = '~/.config/matugen/templates/kitty-colors.conf'
+# output_path = '~/.config/kitty/themes/theme.conf'
+# post_hook = "kitty +kitten themes --reload-in=all matugen &"
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty-colors.conf'
-output_path = '~/.config/kitty/themes/matugen.conf'
-post_hook = "kitty +kitten themes --reload-in=all matugen &"
+output_path = '~/.config/kitty/theme.conf'
+post_hook = "kill -SIGUSR1 $(pgrep -x kitty) &"
 
 [templates.mako]
 input_path = '~/.config/matugen/templates/mako-colors.conf'

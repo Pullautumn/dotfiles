@@ -9,7 +9,7 @@ RESTORE_LIST=(
     "fastfetch/config.jsonc"
     # "fcitx5/conf/classicui.conf"
     "fuzzel/colors.ini"
-    "kitty/current-theme.conf"
+    "kitty/theme.conf"
     # "mako/colors.conf"
     "niri/conf.d/colors.kdl"
     "obs-studio/matugen.obt"
