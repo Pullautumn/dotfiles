@@ -184,4 +184,4 @@ fi
 
 # 切换 fcitx5 主题为 Matugen
 sed -i 's/^Theme=.*/Theme=Matugen/' "$HOME/.config/fcitx5/conf/classicui.conf"
-fcitx5 -r 2>/dev/null &
+env WAYLAND_DISPLAY="$WAYLAND_DISPLAY" DISPLAY="$DISPLAY" fcitx5 -r 2>/dev/null &
