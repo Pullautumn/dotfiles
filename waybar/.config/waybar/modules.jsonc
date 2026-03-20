@@ -59,7 +59,7 @@
     },
     //======================== Middle ========================
     "custom/clock": {
-        "exec": "date '+%-m月%-d日 %H:%M 周%a'",
+        "exec": "date '+ %-m月%-d日 %H:%M 周%a'",
         "interval": 60,
         "on-click": "gnome-clocks",
         "on-click-right": "gnome-calendar"
