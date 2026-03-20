@@ -22,6 +22,7 @@ prettyping                               #
 lazydocker                               # 
 bat-extras                               # 
 eza                                      # 
+zoxide                                   # 
 lazygit                                  # 
 xclip                                    # X11 剪贴板管理器
 grim                                     # Wayland 截图工具
