@@ -14,6 +14,7 @@ build/
 
 # 忽略文件
 btop/.config/btop/themes/matugen.theme
+fastfetch/.config/fastfetch/config.jsonc
 fcitx5/.config/fcitx5/conf/cached_layouts
 fcitx5/.config/fcitx5/conf/classicui
 fcitx5/.config/fcitx5/conf/notifications.conf
