@@ -8,6 +8,21 @@ brightnessctl                            # 屏幕亮度控制
 cliphist                                 # 剪贴板历史记录管理器
 clipnotify                               # X11 剪贴板监听器
 wl-clipboard                             # Wayland 命令行复制粘贴工具
+starship                                 # 跨Shell提示
+fzf                                      # 
+atuin                                    # 
+zoxide                                   # 
+bc                                       # 
+duf                                      # 
+fastfetch                                # 
+ripgrep                                  # 
+fd                                       # 
+unarchiver                               # 
+prettyping                               # 
+lazydocker                               # 
+bat-extras                               # 
+eza                                      # 
+lazygit                                  # 
 xclip                                    # X11 剪贴板管理器
 grim                                     # Wayland 截图工具
 slurp                                    # 屏幕区域选择器（配合 grim 使用）
@@ -36,7 +51,9 @@ downgrade                                # 软件版本回退工具
 strace                                   # shorin-contrib-git 依赖
 
 # --- AUR Packages ---
-wlogout                                  # 电源管理菜单
+AUR:zsh                                  # Shell
+AUR:thefuck                              # 
+AUR:wlogout                                  # 电源管理菜单
 #AUR:shorin-contrib-git                  # shorin 工具集
 #AUR:clipsync-git                        # X11 <-> Wayland 剪贴板同步
 #AUR:shorinclip-git                      # 自制剪贴板 TUI

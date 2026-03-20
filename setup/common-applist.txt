@@ -25,11 +25,7 @@ upscaler                                 # 图片超分辨率工具
 yazi                                     # 优秀的终端文件管理器
 flatseal                                 # Flatpak 权限管理器
 pavucontrol                              # 音频配置图形界面
-zsh-autosuggestions                      # Shell插件 自动补全建议
-zsh-syntax-highlighting                  # Shell插件 命令语法高亮
-zsh-completions                          # Shell插件 额外补全规则
 # --- AUR Packages ---
-AUR:zsh                                  # Shell
 AUR:sparkle-bin                          # 代理
 AUR:linuxqq-appimage                     # 腾讯 QQ（AppImage）
 AUR:wechat-appimage                      # 微信（AppImage）
