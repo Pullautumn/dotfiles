@@ -27,7 +27,7 @@ local-share-fcitx5/.local/share/fcitx5/rime/installation.yaml
 local-share-fcitx5/.local/share/fcitx5/rime/rime_ice.userdb/
 local-share-fcitx5/.local/share/fcitx5/rime/sync
 local-share-fcitx5/.local/share/fcitx5/rime/user.yaml
-local-share-fcitx5/.local/share/fcitx5/rime/themes/
+local-share-fcitx5/.local/share/fcitx5/themes/
 mako/.config/mako/colors.conf
 .marscode/
 niri/.config/niri/conf.d/colors.conf
