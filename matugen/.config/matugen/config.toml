@@ -65,10 +65,10 @@ input_path = '~/.config/matugen/templates/colors.css'
 output_path = '~/.config/swayosd/colors.css'
 post_hook = 'pkill swayosd && swayosd-server &'
 
-[templates.vscode_injection]
-input_path = "~/.config/matugen/templates/vscode-inject.json"
-output_path = "~/.cache/matugen_vscode_inject.json"
-post_hook = "~/.config/matugen/scripts/inject_vscode.sh"
+# [templates.vscode_injection]
+# input_path = "~/.config/matugen/templates/vscode-inject.json"
+# output_path = "~/.cache/matugen_vscode_inject.json"
+# post_hook = "~/.config/matugen/scripts/inject_vscode.sh"
 
 [templates.waybar]
 input_path = '~/.config/matugen/templates/colors.css'

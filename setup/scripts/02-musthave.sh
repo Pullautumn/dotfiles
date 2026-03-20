@@ -13,7 +13,7 @@ log ">>> Starting Phase 2: Essential (Must-have) Software & Drivers"
 # ------------------------------------------------------------------------------
 # 1. Btrfs Extras & GRUB (Config was done in 00-btrfs-init)
 # ------------------------------------------------------------------------------
-section "Step 1/8" "Btrfs Extras & GRUB"
+section "Step 1/10" "Btrfs Extras & GRUB"
 
 ROOT_FSTYPE=$(findmnt -n -o FSTYPE /)
 
@@ -79,7 +79,7 @@ fi
 # ------------------------------------------------------------------------------
 # 2. Audio & Video
 # ------------------------------------------------------------------------------
-section "Step 2/8" "Audio & Video"
+section "Step 2/10" "Audio & Video"
 
 log "Installing firmware..."
 exe pacman -S --noconfirm --needed sof-firmware alsa-ucm-conf alsa-firmware
@@ -93,7 +93,7 @@ success "Audio setup complete."
 # ------------------------------------------------------------------------------
 # 3. Locale
 # ------------------------------------------------------------------------------
-section "Step 3/8" "Locale Configuration"
+section "Step 3/10" "Locale Configuration"
 
 # 标记是否需要重新生成
 NEED_GENERATE=false
@@ -133,7 +133,7 @@ fi
 # ------------------------------------------------------------------------------
 # 4. Input Method
 # ------------------------------------------------------------------------------
-section "Step 4/8" "Input Method (Fcitx5)"
+section "Step 4/10" "Input Method (Fcitx5)"
 
 # chinese-addons备用，ice为主
 exe pacman -S --noconfirm --needed fcitx5-im fcitx5-rime rime-ice-git
@@ -143,7 +143,7 @@ success "Fcitx5 installed."
 # ------------------------------------------------------------------------------
 # 5. Bluetooth (Smart Detection)
 # ------------------------------------------------------------------------------
-section "Step 5/8" "Bluetooth"
+section "Step 5/10" "Bluetooth"
 
 # Ensure detection tools are present
 log "Detecting Bluetooth hardware..."
@@ -174,7 +174,7 @@ fi
 # ------------------------------------------------------------------------------
 # 6. Power
 # ------------------------------------------------------------------------------
-section "Step 6/8" "Power Management"
+section "Step 6/10" "Power Management"
 
 exe pacman -S --noconfirm --needed power-profiles-daemon
 exe systemctl enable --now power-profiles-daemon
@@ -183,16 +183,15 @@ success "Power profiles daemon enabled."
 # ------------------------------------------------------------------------------
 # 7. Fastfetch
 # ------------------------------------------------------------------------------
-section "Step 7/8" "Fastfetch"
+section "Step 7/10" "Fastfetch"
 
 exe pacman -S --noconfirm --needed fastfetch gdu btop cmatrix lolcat sl 
 success "Fastfetch installed."
 
-log "Module 02 completed."
-
 # ------------------------------------------------------------------------------
-# 9. flatpak
+# 8. flatpak
 # ------------------------------------------------------------------------------
+section "Step 8/10" "flatpak"
 
 exe pacman -S --noconfirm --needed flatpak
 exe flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -209,3 +208,55 @@ if [ "$IS_CN_ENV" = true ]; then
 else
   log "Using Global Sources."
 fi
+
+# ------------------------------------------------------------------------------
+# 9. Zram 
+# ------------------------------------------------------------------------------
+section "Step 9/10" "Zram"
+
+exe pacman -S --noconfirm --needed zram-generator earlyoom
+
+# 动态计算 zram-fraction
+TOTAL_MEM_GB=$(awk '/MemTotal/ {printf "%.0f", $2/1024/1024}' /proc/meminfo)
+
+if [ "$TOTAL_MEM_GB" -lt 16 ]; then
+    ZRAM_FRACTION="1.0"
+elif [ "$TOTAL_MEM_GB" -lt 32 ]; then
+    ZRAM_FRACTION="0.75"
+else
+    ZRAM_FRACTION="0.5"
+fi
+
+info_kv "RAM" "${TOTAL_MEM_GB}GB, zram-fraction=${ZRAM_FRACTION}"
+
+cat > /etc/systemd/zram-generator.conf << EOF
+[zram0]
+compression-algorithm = zstd
+zram-fraction = ${ZRAM_FRACTION}
+max-zram-size = none
+swap-priority = 100
+EOF
+
+cat > /etc/sysctl.d/99-swappiness.conf << 'EOF'
+vm.swappiness = 60
+EOF
+
+success "Zram configured."
+
+# ------------------------------------------------------------------------------
+# 10. EarlyOOM
+# ------------------------------------------------------------------------------
+section "Step 10/10" "EarlyOOM"
+
+cat > /etc/default/earlyoom << 'EOF'
+EARLYOOM_ARGS="-m 5 -s 5 -r 60 --avoid '^(init|systemd.*|dbus.*|sddm.*|gdm.*|lightdm.*|Xorg|Xwayland|kwin_.*|plasmashell|gnome-shell|gnome-session.*|niri|sway|hyprland|pacman|pamac.*|yay|paru|sshd)$' --prefer '^(firefox|chromium|chrome|brave|microsoft-edge-.*|vivaldi-bin|opera)$'"
+EOF
+
+exe systemctl daemon-reload
+exe systemctl start dev-zram0.swap
+exe systemctl enable --now earlyoom
+exe sysctl --system
+
+success "EarlyOOM configured."
+
+log "Module 02 completed."

@@ -180,7 +180,7 @@ proxy_test() {
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Created by `pipx` on 2025-09-10 10:22:11
-export PATH="$PATH:/home/pullautumn/.local/bin"
+export PATH="$PATH:~/.local/bin"
 export PATH=~/.npm-global/bin:$PATH
 export PATH="$HOME/.config/rofi/scripts:$PATH"
 
