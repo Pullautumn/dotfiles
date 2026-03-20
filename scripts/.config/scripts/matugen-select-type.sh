@@ -93,10 +93,11 @@ scheme-content"
 fi
 
 # 合并选项
-OPTIONS="${MODE_OPTION}
+OPTIONS="
+${RESTORE_OPTION}
+${MODE_OPTION}
 ${INDEX_OPTION}
 ${REGEN_OPTION}
-${RESTORE_OPTION}
 --------------------
 ${SCHEMES}"
 

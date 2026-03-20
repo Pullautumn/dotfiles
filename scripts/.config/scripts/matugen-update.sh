@@ -184,6 +184,4 @@ fi
 
 # 切换 fcitx5 主题为 Matugen
 sed -i 's/^Theme=.*/Theme=Matugen/' "$HOME/.config/fcitx5/conf/classicui.conf"
-pkill fcitx5 2>/dev/null
-sleep 0.3
-fcitx5 -d 2>/dev/null &
+fcitx5 -r 2>/dev/null &

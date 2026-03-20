@@ -65,9 +65,7 @@ sed -i 's/^Theme=.*/Theme=default/' "$HOME/.config/fcitx5/conf/classicui.conf"
 sed -i 's/^DarkTheme=.*/DarkTheme=default-dark/' "$HOME/.config/fcitx5/conf/classicui.conf"
 
 # 重启 fcitx5
-pkill fcitx5 2>/dev/null
-sleep 0.5
-WAYLAND_DISPLAY=$WAYLAND_DISPLAY DISPLAY=$DISPLAY fcitx5 -d 2>/dev/null &
+fcitx5 -r 2>/dev/null &
 
 # 刷新 GTK 主题
 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus" gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
