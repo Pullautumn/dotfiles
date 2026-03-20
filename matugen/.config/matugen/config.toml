@@ -34,7 +34,7 @@ pre_hook = 'mkdir -p ~/.cache/matugen/hypr/'
 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty-colors.conf'
-output_path = '~/.config/kitty/themes/theme.conf'
+output_path = '~/.config/kitty/themes/matugen.conf'
 post_hook = "kitty +kitten themes --reload-in=all matugen &"
 
 [templates.mako]
