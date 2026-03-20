@@ -13,10 +13,31 @@ build/
 
 
 # 忽略文件
-.config/niri/scripts/venv
-.config/fcitx5/conf/cached_layouts
-.config/fcitx5/profile
-.config/Thunar/accels.scm
-.config/fcitx5/conf/notifications.conf
-.config/fcitx5/conf/classicui.conf
+btop/.config/btop/themes/matugen.theme
+fcitx5/.config/fcitx5/conf/cached_layouts
+fcitx5/.config/fcitx5/conf/classicui
+fcitx5/.config/fcitx5/conf/notifications.conf
+fcitx5/.config/fcitx5/profile
+fuzzel/.config/fuzzel/colors.ini
+kitty/.config/kitty/current-theme.conf
+kitty/.config/kitty/kitty.conf
+kitty/.config/kitty/kitty.conf.bak
+kitty/.config/kitty/themes/
+local-share-fcitx5/.local/share/fcitx5/rime/installation.yaml
+local-share-fcitx5/.local/share/fcitx5/rime/rime_ice.userdb/
+local-share-fcitx5/.local/share/fcitx5/rime/sync
+local-share-fcitx5/.local/share/fcitx5/rime/user.yaml
+local-share-fcitx5/.local/share/fcitx5/rime/themes/
+mako/.config/mako/colors.conf
 .marscode/
+niri/.config/niri/conf.d/colors.conf
+niri/.config/niri/scripts/venv
+obs-studio/.config/obs-studio/matugen.obt
+obs-studio/.config/obs-studio/themes/
+Thunar/.config/Thunar/accels.scm
+wallpaper/Pictures/Wallpapers/api-random-download/
+wallpaper/Pictures/Wallpapers/cache-niri-auto-blur-bg
+wallpaper/Pictures/Wallpapers/cache-niri-overview-blur-dark
+wallpaper/Pictures/Wallpapers/wallpapers
+waybar-niri-Win11Like/.config/waybar-niri-Win11Like/colors.css
+yazi/.config/yazi/theme.toml

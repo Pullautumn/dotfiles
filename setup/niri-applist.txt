@@ -9,21 +9,21 @@ cliphist                                 # 剪贴板历史记录管理器
 clipnotify                               # X11 剪贴板监听器
 wl-clipboard                             # Wayland 命令行复制粘贴工具
 starship                                 # 跨Shell提示
-fzf                                      # 
-atuin                                    # 
-zoxide                                   # 
-bc                                       # 
-duf                                      # 
-fastfetch                                # 
-ripgrep                                  # 
-fd                                       # 
-unarchiver                               # 
-prettyping                               # 
-lazydocker                               # 
-bat-extras                               # 
-eza                                      # 
-zoxide                                   # 
-lazygit                                  # 
+fzf                                      # 命令行模糊查找器
+atuin                                    # 带有同步和搜索功能的shell历史记录工具
+zoxide                                   # 智能cd命令替代品，快速跳转到常用目录
+bc                                       # 任意精度计算器语言
+duf                                      # 用户友好的磁盘使用情况查看器
+fastfetch                                # 快速的系统信息显示工具
+ripgrep                                  # 快速的文本搜索工具
+fd                                       # 简洁的find命令替代品
+unarchiver                               # 解压缩工具
+prettyping                               # 可视化ping延迟的工具
+lazydocker                               # Docker的终端UI界面
+bat-extras                               # bat命令的附加工具集
+eza                                      # 现代化的ls命令替代品
+zoxide                                   # 智能cd命令替代品，快速跳转到常用目录
+lazygit                                  # Git的终端UI界面
 xclip                                    # X11 剪贴板管理器
 grim                                     # Wayland 截图工具
 slurp                                    # 屏幕区域选择器（配合 grim 使用）
@@ -53,13 +53,13 @@ strace                                   # shorin-contrib-git 依赖
 
 # --- AUR Packages ---
 AUR:zsh                                  # Shell
-AUR:thefuck                              # 
-AUR:wlogout                                  # 电源管理菜单
+AUR:thefuck                              # 自动纠正错误的命令行输入
+AUR:wlogout                              # 电源管理菜单
 #AUR:shorin-contrib-git                  # shorin 工具集
 #AUR:clipsync-git                        # X11 <-> Wayland 剪贴板同步
 #AUR:shorinclip-git                      # 自制剪贴板 TUI
 AUR:ddcutil-service                      # 外接显示器硬件亮度控制服务
-AUR:matugen                             # Material You 主题色生成器
+AUR:matugen                              # Material You 主题色生成器
 AUR:python-pywalfox                      # Firefox Pywal 支持
 AUR:ttf-jetbrains-maple-mono-nf-xx-xx    # Maple Mono NF 字体
 AUR:ttf-lxgw-wenkai-screen               # 霞鹜文楷屏幕版字体
