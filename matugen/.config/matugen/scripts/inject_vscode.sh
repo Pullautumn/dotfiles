@@ -3,7 +3,7 @@
 # 1. 强制指定 Visual Studio Code (官方版) 的路径
 VSCODE_SETTINGS="$HOME/.config/Code/User/settings.json"
 GENERATED_COLORS="$HOME/.cache/matugen_vscode_inject.json"
-if pacman -Qq | grep visual-studio-code; then 
+if pacman -Qq | grep -q "visual-studio-code-electron-bin"; then
 
 # 2. 如果配置文件不存在，创建一个空的 (防止报错)
 if [ ! -f "$VSCODE_SETTINGS" ]; then
