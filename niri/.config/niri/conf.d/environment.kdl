@@ -26,9 +26,9 @@ environment {
     // XDG_SESSION_DESKTOP "GNOME"      // 告知会话管理器当前桌面环境是 niri
 
     // ========== 缩放 ==========
-    GDK_SCALE "1.5"                 // GTK 应用整体缩放倍率（适配 HiDPI 屏幕）
+    GDK_SCALE "1.0"                 // GTK 应用整体缩放倍率（适配 HiDPI 屏幕）
     GDK_DPI_SCALE "1.0"             // GTK 应用 DPI 微调倍率，配合 GDK_SCALE 使用
-    QT_SCALE_FACTOR "1.5"           // Qt 应用整体缩放倍率（适配 HiDPI 屏幕）
+    QT_SCALE_FACTOR "1.0"           // Qt 应用整体缩放倍率（适配 HiDPI 屏幕），影响wps缩放
     QT_AUTO_SCREEN_SCALE_FACTOR "0" // 禁用 Qt 自动缩放，避免与手动缩放冲突
     XCURSOR_SIZE "24"               // 鼠标光标大小（HiDPI 下建议 24 或 32）
 
