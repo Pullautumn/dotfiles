@@ -441,6 +441,7 @@ deploy_dotfiles_stow() {
         return 1
     fi
 
+    STOW_PKGS+=("local-bin")
     log "Packages to stow: ${STOW_PKGS[*]}"
 
     # 清理冲突文件（先 dry-run 检测冲突，再删除）
