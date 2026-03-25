@@ -127,7 +127,7 @@
     },
     "custom/clipboard": {
         "format": "󰅇",
-        "on-click": "pkill fuzzel || ~/.local/share/bin/cliphist-fuzzel-img",
+        "on-click": "pkill fuzzel || $HOME/.config/waybar/scripts/cliphist-fuzzel-img",
         "tooltip-format": "Clipboard"
     },
     "cpu": {

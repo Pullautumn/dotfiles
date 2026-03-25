@@ -1,187 +1,159 @@
 #!/bin/bash
 
-# --- 1. 参数解析 ---
-WALLPAPER=""
-NO_INDEX=false
+# ================= 默认配置 =================
+API_URL="https://t.alcy.cc/pc/"
+SAVE_DIR="$HOME/Pictures/Wallpapers/api-random-download"
 
-show_help() {
-    echo "Usage: matugen-update.sh [OPTIONS] [WALLPAPER]"
-    echo ""
-    echo "Options:"
-    echo "  -h, --help       显示此帮助信息"
-    echo "  -n, --no-index   不指定 index，在终端运行时唤起 matugen 原生的交互式颜色选择"
+# [新增配置] 自动清理时保留最近多少张图片？
+KEEP_COUNT=40
+
+# 阈值：宽度小于 2500 (即1080P及以下) 才进行超分，2K/4K 原图直出
+UPSCALE_THRESHOLD=2200
+
+# 默认开关状态 (可被参数覆盖)
+ENABLE_CLEANUP=true   # 默认清理旧图片
+ENABLE_UPSCALE=true   # 默认开启智能超分
+SILENT_MODE=false     # 默认开启通知
+
+# ================= 参数解析 =================
+usage() {
+    echo "用法: $(basename $0) [-k] [-n] [-s] [-h]"
+    echo "  -k  (Keep)    保留模式：不清理旧壁纸"
+    echo "  -n  (No Up)   禁用超分：无论分辨率多少，都直接使用原图"
+    echo "  -s  (Silent)  静默模式：不发送任何 notify-send 通知"
+    echo "  -h  帮助信息"
     exit 0
 }
 
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        -h|--help)
-            show_help
-            ;;
-        -n|--no-index)
-            NO_INDEX=true
-            shift
-            ;;
-        *)
-            WALLPAPER="$1"
-            shift
-            ;;
-    esac
+while getopts "knsh" opt; do
+  case $opt in
+    k) ENABLE_CLEANUP=false ;;
+    n) ENABLE_UPSCALE=false ;;
+    s) SILENT_MODE=true ;;
+    h) usage ;;
+    *) usage ;;
+  esac
 done
 
-# --- 2. 路径与状态定义 ---
-CACHE_DIR="$HOME/.cache/matugen-strategy"
-TYPE_FILE="$CACHE_DIR/type"
-MODE_FILE="$CACHE_DIR/mode"
-INDEX_MODE_FILE="$CACHE_DIR/index_mode"
-LAST_WALL_FILE="$CACHE_DIR/last_wallpaper"     
-CURRENT_INDEX_FILE="$CACHE_DIR/current_index"  
-VALID_INDICES_FILE="$CACHE_DIR/valid_indices"  
-SHRUNK_CACHE_DIR="$CACHE_DIR/shrunk_images"   # 新增：独立的缓存池目录
-WAYPAPER_CONFIG="$HOME/.config/waypaper/config.ini"
+# ================= 辅助函数 =================
 
-mkdir -p "$SHRUNK_CACHE_DIR"
+# 统一通知函数
+send_notify() {
+    # $1: Title, $2: Body, $3: Extra Args (optional)
+    if [ "$SILENT_MODE" = false ]; then
+        notify-send "$1" "$2" $3
+    fi
+}
 
-# --- 3. 获取壁纸路径 ---
-if [ -z "$WALLPAPER" ]; then
-    if command -v swww &>/dev/null && pgrep -x "swww-daemon" >/dev/null; then
-         DETECTED_WALL=$(swww query | head -n 1 | awk -F ': ' '{print $2}' | awk '{print $1}')
-         if [ -n "$DETECTED_WALL" ] && [ -f "$DETECTED_WALL" ]; then
-            WALLPAPER="$DETECTED_WALL"
-         fi
-    fi
-    if [ -z "$WALLPAPER" ] && [ -f "$WAYPAPER_CONFIG" ]; then
-        WP_PATH=$(sed -n 's/^wallpaper[[:space:]]*=[[:space:]]*//p' "$WAYPAPER_CONFIG")
-        WP_PATH="${WP_PATH/#\~/$HOME}"
-        if [ -n "$WP_PATH" ] && [ -f "$WP_PATH" ]; then
-            WALLPAPER="$WP_PATH"
-        fi
-    fi
+# ================= 主逻辑 =================
+
+mkdir -p "$SAVE_DIR"
+RAW_FILENAME="wall_$(date +%s).jpg"
+RAW_PATH="${SAVE_DIR}/${RAW_FILENAME}"
+
+# --- 1. 下载模块 (带心跳通知) ---
+
+# 如果非静默模式，启动后台心跳通知 (每8秒提示一次)
+if [ "$SILENT_MODE" = false ]; then
+    (
+        sleep 8
+        while true; do
+            notify-send "Wallpaper" "Downloading is still in progress..." --expire-time=5000 --icon=drive-harddisk --replace-id=999
+            sleep 8
+        done
+    ) &
+    NOTIFY_PID=$!
+else
+    NOTIFY_PID=""
 fi
 
-if [ -z "$WALLPAPER" ] || [ ! -f "$WALLPAPER" ]; then
-    notify-send "Matugen Error" "无法找到壁纸路径。"
+send_notify "Wallpaper" "Downloading from Alcy..." "--expire-time=5000"
+
+USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+# 执行下载
+curl -L -s -A "$USER_AGENT" --connect-timeout 10 -m 120 -o "$RAW_PATH" "$API_URL"
+DOWNLOAD_EXIT_CODE=$?
+
+# 下载结束，杀掉通知进程
+if [ -n "$NOTIFY_PID" ]; then
+    kill "$NOTIFY_PID" 2>/dev/null
+    wait "$NOTIFY_PID" 2>/dev/null
+fi
+
+# 检查下载结果
+if [ $DOWNLOAD_EXIT_CODE -ne 0 ]; then
+    send_notify "Wallpaper Error" "Download failed (Network/API Error)" "--urgency=critical"
     exit 1
 fi
-ln -sf "$WALLPAPER" "$HOME/.cache/.current_wallpaper"
 
-# --- 4. [智能缓存] 哈希化与选择性转换 ---
-# 利用 MD5 生成该路径独一无二的缓存文件名
-WALL_HASH=$(echo -n "$WALLPAPER" | md5sum | awk '{print $1}')
-CACHED_IMAGE="$SHRUNK_CACHE_DIR/${WALL_HASH}.png"
-TARGET_IMAGE="$WALLPAPER" # 默认直接喂原图
-
-# 仅获取真实 MIME 类型
-FILE_MIME=$(file -b --mime-type "$WALLPAPER")
-NEED_CONVERT=false
-
-# 只有真实格式是 webp 时，才触发 ImageMagick 转换，修复 5249 致命错误
-if [[ "$FILE_MIME" == *"webp"* ]]; then
-    NEED_CONVERT=true
+# 校验文件 (大小和类型)
+if [ ! -f "$RAW_PATH" ] || [ "$(wc -c < "$RAW_PATH")" -lt 20480 ]; then
+    send_notify "Wallpaper Error" "Download failed (File too small/Invalid)" "--urgency=critical"
+    rm -f "$RAW_PATH"
+    exit 1
 fi
 
-if [ "$NEED_CONVERT" = true ]; then
-    TARGET_IMAGE="$CACHED_IMAGE"
-    # 如果缓存池里还没有这张图，才去调用 ImageMagick
-    if [ ! -f "$CACHED_IMAGE" ]; then
-        if command -v magick &>/dev/null; then
-            magick "$WALLPAPER" -resize 500x500\> "$CACHED_IMAGE"
-        elif command -v convert &>/dev/null; then
-            convert "$WALLPAPER" -resize 500x500\> "$CACHED_IMAGE"
-        elif command -v ffmpeg &>/dev/null; then
-            ffmpeg -y -i "$WALLPAPER" -vf "scale='min(500,iw)':-1" "$CACHED_IMAGE" &>/dev/null
-        else
-            # 没有工具就只能硬着头皮上原图了
-            TARGET_IMAGE="$WALLPAPER" 
-        fi
-    fi
+FILE_TYPE=$(file --mime-type -b "$RAW_PATH")
+if [[ "$FILE_TYPE" != image/* ]]; then
+    send_notify "Wallpaper Error" "Not an image file ($FILE_TYPE)" "--urgency=critical"
+    rm -f "$RAW_PATH"
+    exit 1
 fi
 
-# 检查是否换了壁纸，用于清空有效颜色的探测状态
-LAST_WALL=""
-[ -f "$LAST_WALL_FILE" ] && LAST_WALL=$(cat "$LAST_WALL_FILE")
-if [ "$LAST_WALL" != "$WALLPAPER" ]; then
-    rm -f "$VALID_INDICES_FILE"
-fi
+# --- 2. 智能超分模块 ---
 
-# --- 5. 读取策略与模式 ---
-if [ -f "$TYPE_FILE" ]; then STRATEGY=$(cat "$TYPE_FILE"); else STRATEGY="scheme-tonal-spot"; fi
-if [ -f "$MODE_FILE" ]; then MODE=$(cat "$MODE_FILE"); else MODE="dark"; fi
+FINAL_PATH="$RAW_PATH"
+MSG_EXTRA=""
 
-# --- 6. 执行 Matugen ---
-if [ "$NO_INDEX" = true ]; then
-    matugen image "$TARGET_IMAGE" -t "$STRATEGY" -m "$MODE"
-else
-    # 后台自动化模式
-    FORCE_ZERO=true
-    if [ -f "$INDEX_MODE_FILE" ]; then
-        if [ "$(cat "$INDEX_MODE_FILE")" == "random" ]; then
-            FORCE_ZERO=false
-        fi
+if [ "$ENABLE_UPSCALE" = true ]; then
+    IMG_WIDTH=0
+    if command -v identify &> /dev/null; then
+        IMG_WIDTH=$(identify -format "%w" "$RAW_PATH")
     fi
 
-    if [ "$FORCE_ZERO" = true ]; then
-        SELECTED_INDEX=0
-    else
-        # 判断：如果探测缓存都存在，直接走“光速轮换”
-        if [ "$LAST_WALL" == "$WALLPAPER" ] && [ -f "$VALID_INDICES_FILE" ] && [ -f "$CURRENT_INDEX_FILE" ]; then
-            
-            read -r -a VALID_INDICES < "$VALID_INDICES_FILE"
-            LAST_INDEX=$(cat "$CURRENT_INDEX_FILE")
-            NEXT_POS=0
-            
-            for j in "${!VALID_INDICES[@]}"; do
-                if [ "${VALID_INDICES[$j]}" == "$LAST_INDEX" ]; then
-                    NEXT_POS=$(( (j + 1) % ${#VALID_INDICES[@]} ))
-                    break
-                fi
-            done
-            SELECTED_INDEX=${VALID_INDICES[$NEXT_POS]}
-
-        else
-            # === 首次处理本壁纸：执行探测 ===
-            VALID_INDICES=()
-            for i in {0..5}; do
-                if matugen image "$TARGET_IMAGE" --source-color-index "$i" --dry-run &>/dev/null; then
-                    VALID_INDICES+=("$i")
-                else
-                    break
-                fi
-            done
-            
-            echo "${VALID_INDICES[@]}" > "$VALID_INDICES_FILE"
-            
-            if [ ${#VALID_INDICES[@]} -eq 0 ]; then
-                SELECTED_INDEX=0 # 兜底
-            else
-                RANDOM_INDEX=$((RANDOM % ${#VALID_INDICES[@]}))
-                SELECTED_INDEX=${VALID_INDICES[$RANDOM_INDEX]}
-            fi
-        fi
+    # 条件: (宽度有效) AND (小于阈值) AND (waifu2x存在)
+    if [ "$IMG_WIDTH" -gt 0 ] && [ "$IMG_WIDTH" -lt "$UPSCALE_THRESHOLD" ] && command -v waifu2x-ncnn-vulkan &> /dev/null; then
+        send_notify "Wallpaper" "Upscaling image..." "--expire-time=2000"
+        UPSCALED_PATH="${RAW_PATH%.*}.png"
         
-        echo "$SELECTED_INDEX" > "$CURRENT_INDEX_FILE"
+        if waifu2x-ncnn-vulkan -i "$RAW_PATH" -o "$UPSCALED_PATH" -n 1 -s 2; then
+            FINAL_PATH="$UPSCALED_PATH"
+            MSG_EXTRA="(Upscaled 2x)"
+            rm "$RAW_PATH"
+        else
+            MSG_EXTRA="(Upscale Failed)"
+        fi
+    else
+        if [ "$IMG_WIDTH" -ge "$UPSCALE_THRESHOLD" ]; then
+            MSG_EXTRA="(Original High-Res)"
+        else
+            MSG_EXTRA="(Original)"
+        fi
     fi
-    
-    # 最终执行，传入决定好的 TARGET_IMAGE (可能是原图，也可能是缓存的缩小图)
-    matugen image "$TARGET_IMAGE" -t "$STRATEGY" -m "$MODE" --source-color-index "$SELECTED_INDEX"
-    
-    # 状态持久化
-    echo "$WALLPAPER" > "$LAST_WALL_FILE"
-fi
-
-# 刷新 GNOME 主题设置
-if [ "$MODE" == "light" ]; then
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
-    gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"
-    gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk"
 else
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-    gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk"
-    gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"
+    MSG_EXTRA="(Upscale Disabled)"
 fi
 
-# 切换 fcitx5 主题为 Matugen
-sed -i 's/^Theme=.*/Theme=Matugen/' "$HOME/.config/fcitx5/conf/classicui.conf"
-env WAYLAND_DISPLAY="$WAYLAND_DISPLAY" DISPLAY="$DISPLAY" fcitx5 -r 2>/dev/null &
+# --- 3. 应用模块 ---
+
+awww img "$FINAL_PATH" --transition-duration 2 --transition-type center --transition-fps 60
+
+# --- 4. 钩子与清理 ---
+(
+    # 钩子脚本屏蔽标准输出，保留报错
+    [ -x "$HOME/.config/scripts/matugen-update.sh" ] && "$HOME/.config/scripts/matugen-update.sh" "$FINAL_PATH" > /dev/null
+    
+    sleep 0.5
+    
+    [ -x "$HOME/.config/scripts/niri_set_overview_blur_dark_bg.sh" ] && "$HOME/.config/scripts/niri_set_overview_blur_dark_bg.sh" > /dev/null
+    
+    # [修改] 动态清理逻辑
+    if [ "$ENABLE_CLEANUP" = true ]; then
+        # 计算需要从第几行开始删除 (保留数量 + 1)
+        DELETE_START=$((KEEP_COUNT + 1))
+        cd "$SAVE_DIR" && ls -t | tail -n +$DELETE_START | xargs -I {} rm -- {} 2>/dev/null
+    fi
+) &
+
+send_notify "Wallpaper Updated" "Enjoy! $MSG_EXTRA"

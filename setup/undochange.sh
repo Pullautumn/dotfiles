@@ -42,27 +42,27 @@ perform_rollback() {
     local snap_conf="$2"
     
     echo -e "Checking config: ${YELLOW}$snap_conf${NC} for subvolume: ${YELLOW}$subvol${NC}..."
-
+    
     # 1. Get Snapper ID
     # logic: list snapshots -> filter by description -> take the last one -> get ID
     local snap_id=$(snapper -c "$snap_conf" list --columns number,description | grep "$TARGET_DESC" | tail -n 1 | awk '{print $1}')
-
+    
     if [ -z "$snap_id" ]; then
         echo -e "${RED}  [SKIP] Snapshot '$TARGET_DESC' not found in config '$snap_conf'.${NC}"
         return 1
     fi
-
+    
     echo -e "  Found Snapshot ID: ${GREEN}$snap_id${NC}"
-
+    
     # 2. Map to Btrfs-Assistant Index
     # Logic from quickload: Match Subvolume Name ($2) and Snapper ID ($3) to get Index ($1)
     local ba_index=$(btrfs-assistant -l | awk -v v="$subvol" -v s="$snap_id" '$2==v && $3==s {print $1}')
-
+    
     if [ -z "$ba_index" ]; then
         echo -e "${RED}  [FAIL] Could not map Snapper ID $snap_id to Btrfs-Assistant index.${NC}"
         return 1
     fi
-
+    
     # 3. Execute Restore
     echo -e "  Executing rollback (Index: $ba_index)..."
     if btrfs-assistant -r "$ba_index"; then
@@ -94,6 +94,7 @@ if snapper list-configs | grep -q "^home "; then
 else
     echo -e "No 'home' snapper config found, skipping home restore."
 fi
+
 
 # 5. Reboot
 echo -e "${GREEN}System rollback successful.${NC}"

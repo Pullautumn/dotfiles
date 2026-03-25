@@ -44,7 +44,7 @@ binds {
     // 打开yazi
     Mod+Y hotkey-overlay-title="yazi" { spawn "kitty" "--class" "Yazi" "--" "yazi"; }
     Mod+A     hotkey-overlay-title="应用启动器"    repeat=false    { spawn "~/.config/rofi/scripts/launcher_t8"; }
-    Mod+Shift+V     hotkey-overlay-title="剪贴板"  repeat=false    { spawn "bash" "-c" "pkill rofi || ~/.local/share/bin/cliphist-fuzzel-img"; }
+    Mod+Shift+V     hotkey-overlay-title="剪贴板"  repeat=false    { spawn "bash" "-c" "pkill rofi || $HOME/.config/waybar/scripts/cliphist-fuzzel-img"; }
     // 锁屏
     // Mod+Ctrl+L     hotkey-overlay-title="锁屏"     { spawn "gtklock"; }
     Mod+Alt+L hotkey-overlay-title="锁屏" { spawn-sh "hyprlock -c ~/.config/niri/hyprlock.conf"; }
