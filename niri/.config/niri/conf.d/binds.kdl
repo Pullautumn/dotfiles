@@ -282,7 +282,7 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
 
     // moving the mouse or pressing any other key.
-    Mod+Alt+P  hotkey-overlay-title="休眠 Turn off monitors" { spawn-sh "niri msg action power-off-monitors && hyprlock && systemctl suspend"; }
+    Mod+Alt+P  hotkey-overlay-title="休眠 Turn off monitors" { spawn-sh "niri msg action power-off-monitors && hyprlock -c ~/.config/niri/hyprlock.conf && systemctl suspend"; }
 
     Mod+Shift+E    hotkey-overlay-title="退出桌面"    { quit; }
     Mod+Ctrl+Shift+Alt+R hotkey-overlay-title="重载配置" {

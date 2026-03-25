@@ -18,7 +18,7 @@
     },
     "network": {
         "format": "󰜮{bandwidthDownBytes} 󰜷{bandwidthUpBytes}",
-        "format-disconnected": "󰹸 断开",
+        "format-disconnected": "󰹸断开",
         "tooltip-format": "下载: {bandwidthDownBytes}\n上传: {bandwidthUpBytes}",
         "interval": 1
     },
@@ -65,21 +65,10 @@
         "on-click-right": "gnome-calendar"
     },
     "clock": {
-        "format": " {:%d %m月 %H:%M}",
-        "tooltip-format": "<tt>{calendar}</tt>",
-        "calendar": {
-            "mode": "month",
-            "on-scroll": 1,
-            "on-click-right": "mode",
-            "on-click": "gnome-calendar",
-            "format": {
-                "months": "<span color='#ffead3'><b>{}</b></span>",
-                "days": "<span color='#ecc6d9'><b>{}</b></span>",
-                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-            }
-        },
-        "interval": 60
+        "format": "{:%m月%d日 %H:%M 周%a}",
+        "interval": 60,
+        "on-click": "gnome-clocks",
+        "on-click-right": "gnome-calendar"
     },
     "custom/notification": {
         "tooltip": false,
@@ -138,7 +127,7 @@
     },
     "custom/clipboard": {
         "format": "󰅇",
-        "on-click": "pkill fuzzel || ~/.config/waybar/scripts/cliphist-fuzzel-img",
+        "on-click": "pkill fuzzel || ~/.local/share/bin/cliphist-fuzzel-img",
         "tooltip-format": "Clipboard"
     },
     "cpu": {
@@ -240,7 +229,7 @@
             "critical": 20
         },
         "format": "{icon}&#8239;{capacity}%",
-        "format-charging": "&#8239;{capacity}% ",
+        "format-charging": "&#8239;{capacity}%",
         "format-full": "&#8239;{capacity}%",
         "format-plugged": "&#8239;{capacity}%",
         "format-not-charging": "&#8239;{capacity}%",

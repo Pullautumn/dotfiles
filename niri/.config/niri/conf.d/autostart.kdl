@@ -2,9 +2,9 @@
 // 加载 XWayland DPI，解决xwayland下fcitx5界面太小
 spawn-sh-at-startup "echo 'Xft.dpi: 144' | xrdb -merge"
 // 桌面壁纸的守护进程
-spawn-at-startup "swww-daemon"
+spawn-at-startup "awww-daemon"
 // 总览界面背景壁纸的守护进程
-spawn-at-startup "swww-daemon" "-n" "overview"
+spawn-at-startup "awww-daemon" "-n" "overview"
 // 随机更换一张壁纸
 spawn-sh-at-startup "sleep 1 &&  waypaper --random"
 // 恢复壁纸
