@@ -2,7 +2,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 # Move the directory to the second line
 # format = '$shell$os$username$hostname$directory$container$all$character'
-format = '$os$username$hostname$directory$container$all$character'
+format = '$shell$os$username$hostname$directory$container$all$character'
 
 # 在提示符之间插入空行
 add_newline = false
@@ -23,7 +23,7 @@ zsh_indicator = '󰬡'
 cmd_indicator = ''
 format = '[$indicator]($style) '
 style = 'green bold'
-disabled = false
+disabled = true
 
 
 
