@@ -13,8 +13,8 @@ done
 
 # 自动获取壁纸路径
 if [ -z "$WALLPAPER" ]; then
-  if command -v swww &>/dev/null && pgrep -x "swww-daemon" >/dev/null; then
-    DETECTED_WALL=$(swww query | head -n 1 | awk -F ': ' '{print $2}' | awk '{print $1}')
+  if command -v awww &>/dev/null && pgrep -x "awww-daemon" >/dev/null; then
+    DETECTED_WALL=$(awww query | head -n 1 | awk -F ': ' '{print $2}' | awk '{print $1}')
     if [ -n "$DETECTED_WALL" ] && [ -f "$DETECTED_WALL" ]; then
       WALLPAPER="$DETECTED_WALL"
     fi
