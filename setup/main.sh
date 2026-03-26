@@ -5,7 +5,7 @@ export SHELL=$(command -v bash)
 # Pullautumn Arch Setup - Main Installer (v1.1))
 # ==============================================================================
 
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/setup"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPTS_DIR="$BASE_DIR/scripts"
 STATE_FILE="$BASE_DIR/.install_progress"
 
