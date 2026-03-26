@@ -169,6 +169,12 @@ else
     echo "$WALLPAPER" > "$LAST_WALL_FILE"
 fi
 
+# 设置 fcitx5 主题为 matugen
+sed -i 's/^Theme=.*/Theme=Matugen/' "$HOME/.config/fcitx5/conf/classicui.conf"
+sed -i 's/^DarkTheme=.*/DarkTheme=Matugen/' "$HOME/.config/fcitx5/conf/classicui.conf"
+# 重启 fcitx5 以应用新主题
+fcitx5 -r 2>/dev/null &
+
 # 刷新 GNOME 主题设置
 if [ "$MODE" == "light" ]; then
     # gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
