@@ -418,22 +418,6 @@ section "Config" "Hiding useless .desktop files"
 log "Hiding useless .desktop files"
 run_hide_desktop_file
 
-# --- Post-Dotfiles Configuration: Firefox ---
-section "Config" "Firefox UI Customization"
-MOZILLA_DIR="$HOME_DIR/.config/mozilla"
-
-if [ -d "$MOZILLA_DIR" ]; then 
-    log "Backing up existing mozilla directory..."
-    mv "$MOZILLA_DIR" "$MOZILLA_DIR.bak.$(date +%s)"
-fi
-    
-if mkdir -p "$MOZILLA_DIR"; then 
-    log "directory created."
-fi
-if cp -rf "$PARENT_DIR/resources/firefox" "$MOZILLA_DIR/"; then
-    chown -R "$TARGET_USER" "$MOZILLA_DIR"
-    log "firefox dotfiles doployed."
-fi
 section "Config" "clash tun"
 
 # if command -v clash-verge; then 

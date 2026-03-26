@@ -145,16 +145,9 @@ if command -v kitty &>/dev/null; then
 fi
 
 log "Installing theme components and browser..."
-THEME_PKGS="matugen adw-gtk-theme python-pywalfox firefox nwg-look"
+THEME_PKGS="matugen adw-gtk-theme python-pywalfox nwg-look"
 echo "$THEME_PKGS" >> "$VERIFY_LIST"
 exe as_user "$AUR_HELPER" -S --noconfirm --needed $THEME_PKGS
-
-log "Configuring Firefox Pywalfox policy..."
-POL_DIR="/etc/firefox/policies"
-exe mkdir -p "$POL_DIR"
-echo '{ "policies": { "Extensions": { "Install": ["https://addons.mozilla.org/firefox/downloads/latest/pywalfox/latest.xpi"] } } }' >"$POL_DIR/policies.json"
-exe chmod 755 "$POL_DIR"
-exe chmod 644 "$POL_DIR/policies.json"
 
 # --- Desktop Cleanup & Tutorials ---
 section "Config" "Desktop Cleanup"
