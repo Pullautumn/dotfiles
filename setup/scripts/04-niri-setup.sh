@@ -457,11 +457,19 @@ deploy_dotfiles_stow() {
     # 执行 stow
     for pkg in "${STOW_PKGS[@]}"; do
         log "  Stowing: $pkg"
-        if as_user stow --dir="$repo" --target="$HOME_DIR" -R "$pkg" 2>/tmp/stow_err.log; then
-            success "  Stowed: $pkg"
+        
+        # mimeapps 包使用绝对路径符号链接
+        if [ "$pkg" = "mimeapps" ]; then
+            as_user mkdir -p "$HOME_DIR/.config"
+            as_user ln -sf "$repo/mimeapps/.config/mimeapps.list" "$HOME_DIR/.config/mimeapps.list"
+            success "  Stowed (absolute link): $pkg"
         else
-            warn "  Stow failed for '$pkg':"
-            cat /tmp/stow_err.log
+            if as_user stow --dir="$repo" --target="$HOME_DIR" -R "$pkg" 2>/tmp/stow_err.log; then
+                success "  Stowed: $pkg"
+            else
+                warn "  Stow failed for '$pkg':"
+                cat /tmp/stow_err.log
+            fi
         fi
     done
 
