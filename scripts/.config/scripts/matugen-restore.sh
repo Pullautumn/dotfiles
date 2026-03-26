@@ -52,7 +52,7 @@ for rel_path in "${RESTORE_LIST[@]}"; do
 done
 
 # 刷新各应用
-pkill -SIGUSR2 waybar 2>/dev/null
+# pkill -SIGUSR2 waybar 2>/dev/null
 niri msg action reload-config 2>/dev/null
 kill -SIGUSR1 $(pgrep -x kitty) 2>/dev/null
 killall -SIGUSR1 btop 2>/dev/null
