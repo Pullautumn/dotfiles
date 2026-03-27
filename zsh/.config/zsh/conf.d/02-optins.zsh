@@ -18,6 +18,14 @@ zle -N edit-command-line
 bindkey '^v' edit-command-line
 alias vl=edit-command-line
 
+# Ctrl + 方向键：按单词移动光标（仅在命令行编辑时生效）
+# 这些是 ZLE (Zsh Line Editor) 的标准绑定
+# ^[[1;5C = Ctrl+Right, ^[[1;5D = Ctrl+Left
+bindkey -M emacs '^[[1;5C' forward-word
+bindkey -M emacs '^[[1;5D' backward-word
+bindkey -M viins '^[[1;5C' forward-word
+bindkey -M viins '^[[1;5D' backward-word
+
 # 粘贴高亮修复
 zle_highlight=('paste:none')
 
