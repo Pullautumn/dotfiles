@@ -85,7 +85,6 @@ select_desktop() {
     # 1. 定义选项 (显示名称|内部ID)
     local OPTIONS=(
         "Pullautumn-Niri ${H_YELLOW}(Recommended)${NC} |pullautumnniri"
-        "Pullautumn-DMS-Niri |pullautumndms"
         "Pullautumn-DMS-Niri-git ${H_YELLOW}(Recommended)${NC} |pullautumndmsgit"
     )
     
