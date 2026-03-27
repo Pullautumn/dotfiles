@@ -39,7 +39,7 @@ binds {
     // 警告：这是实验性功能
     // 切换 移动聚焦窗口至侧边栏 （建议配合切换浮动聚焦的快捷键使用，我设置的是mod+ctrl+m和mod+alt+v）
     Mod+Alt+S hotkey-overlay-title="收起窗口 Move to Sidebar" { spawn "niri-sidebar" "toggle-window"; }
-    Mod+M hotkey-overlay-title="收起窗z口 Move to Sidebar" { spawn "niri-sidebar" "toggle-window"; }
+    Mod+M hotkey-overlay-title="收起窗口 Move to Sidebar" { spawn "niri-sidebar" "toggle-window"; }
     // 切换 聚焦窗口（切换浮动聚焦）
     Mod+Ctrl+M hotkey-overlay-title="切换浮动聚焦 Change focus to floating" { switch-focus-between-floating-and-tiling; }
     // 切换 收起/展开侧边栏
@@ -60,6 +60,7 @@ binds {
     Mod+Y hotkey-overlay-title="yazi" { spawn "kitty" "--class" "Yazi" "--" "yazi"; }
     Mod+A     hotkey-overlay-title="应用启动器"    repeat=false    { spawn "fuzzel"; }
     Mod+Shift+V     hotkey-overlay-title="剪贴板"  repeat=false    { spawn "bash" "-c" "pkill rofi || $HOME/.config/waybar/scripts/cliphist-fuzzel-img"; }
+    Mod+V hotkey-overlay-title="剪贴板 Clipboard" {spawn-sh "kitty --single-instance --title shorinclip -e shorinclip";} // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // 锁屏
     // Mod+Ctrl+L     hotkey-overlay-title="锁屏"     { spawn "gtklock"; }
     Mod+Alt+L hotkey-overlay-title="锁屏" { spawn-sh "hyprlock -c ~/.config/niri/hyprlock.conf"; }
@@ -273,8 +274,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // 切换浮动模式
-    Mod+V    hotkey-overlay-title="当前窗口浮动"    { toggle-window-floating; }
-    Mod+Alt+V hotkey-overlay-title="切换浮动聚焦 Change focus to floating" { switch-focus-between-floating-and-tiling; }
+    Mod+Space    hotkey-overlay-title="当前窗口浮动"    { toggle-window-floating; }
+    Mod+Alt+Space hotkey-overlay-title="切换浮动聚焦 Change focus to floating" { switch-focus-between-floating-and-tiling; }
 
     // 手动切换窗口居中
     Mod+C    hotkey-overlay-title="切换窗口居中"     { center-column; }  

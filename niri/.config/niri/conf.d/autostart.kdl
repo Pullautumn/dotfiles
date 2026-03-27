@@ -25,6 +25,7 @@ spawn-at-startup "waybar"
 // 输入法
 spawn-at-startup "fcitx5" 
 // 剪贴板守护进程
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 // 使用rofi剪贴板
 spawn-sh-at-startup "wl-paste --type text --watch cliphist store & wl-paste --type image --watch cliphist store & wait"
 // spawn-at-startup "wl-paste" "--watch" "cliphist" "store"

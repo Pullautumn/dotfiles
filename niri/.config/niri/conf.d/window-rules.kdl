@@ -81,6 +81,15 @@ window-rule {
     default-column-width { fixed 800; }
     default-window-height { fixed 500; }
 }
+//shorinclip剪贴板TUI 
+window-rule{
+	match title="shorinclip"
+	default-column-width { fixed 1100; }
+    default-window-height { fixed 1000; }
+    //min-height 800
+	open-floating true
+	default-floating-position x=0 y=18 relative-to="top"
+}
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
