@@ -75,8 +75,7 @@ window-rule {
 
 //快速终端
 window-rule {
-    match app-id="notebook"
-    match app-id="quickterminal"
+    match title="quickterminal"
 	open-floating true
 	default-floating-position x=20 y=20 relative-to="top"
     default-column-width { fixed 800; }

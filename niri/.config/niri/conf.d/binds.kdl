@@ -54,8 +54,8 @@ binds {
     Mod+Return     hotkey-overlay-title="终端"      { spawn "kitty"; }
     Mod+T     hotkey-overlay-title="终端"    { spawn "kitty"; }
     // 临时开一个浮动终端
-    Mod+Slash hotkey-overlay-title="临时终端 Quick Terminal" {spawn "kitty" "--single-instance" "--class" "quickterminal";}
-    Mod+F12 hotkey-overlay-title=null {spawn "kitty" "--class" "quickterminal";}
+    Mod+Slash hotkey-overlay-title="临时终端 Quick Terminal" {spawn "kitty" "--single-instance" "--title" "quickterminal";}
+    Mod+F12 hotkey-overlay-title=null {spawn "kitty" "--title" "quickterminal";}
     // 打开yazi
     Mod+Y hotkey-overlay-title="yazi" { spawn "kitty" "--class" "Yazi" "--" "yazi"; }
     Mod+A     hotkey-overlay-title="应用启动器"    repeat=false    { spawn "fuzzel"; }
