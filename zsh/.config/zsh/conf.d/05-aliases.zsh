@@ -14,8 +14,8 @@ alias indextts='indextts --model_dir ~/.local/share/index-tts/index-tts/checkpoi
 alias wshowkeys="nohup wshowkeys -a bottom -F 'Sans Bold 30' -s '#B5B520ff' -f  '#ecd29cff' -b '#201B1488' -l 60  > /dev/null 2>&1 &"
 alias uvr='$HOME/.conda/envs/uvr5/bin/python $HOME/.local/share/uvr5/ultimatevocalremovergui/UVR.py'
 alias tssh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-alias npm=pnpm
-alias yay=paru
+# alias npm=pnpm
+# alias yay=paru
 alias k="ps aux | fzf --height 40% --reverse | awk '{print $2}' | xargs kill -9"
 alias gc="git clone"
 alias lg="lazygit"

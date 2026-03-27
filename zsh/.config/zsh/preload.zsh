@@ -46,4 +46,12 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey '^v' edit-command-line
 
+# 绑定 Ctrl + → 到下一个单词
+bindkey "\e[1;5C" forward-word
+bindkey "^[[1;5C" forward-word
+ 
+# 绑定 Ctrl + ← 到上一个单词
+bindkey "\e[1;5D" backward-word
+bindkey "^[[1;5D" backward-word
+
 source $HOME/.config/zsh/plugins.zsh

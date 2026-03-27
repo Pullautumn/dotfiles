@@ -2,7 +2,6 @@
 // 放进overview里的壁纸程序
 layer-rule{
     match namespace="awww-daemonoverview"
-    match namespace="swww-daemonoverview"
     place-within-backdrop true
 }
 // 带缩略图的alt+tab切换窗口功能（但是我设置的是super+tab，更符合逻辑）
