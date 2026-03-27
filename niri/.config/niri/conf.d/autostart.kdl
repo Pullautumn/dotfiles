@@ -33,6 +33,7 @@ spawn-sh-at-startup "wl-paste --type text --watch cliphist store & wl-paste --ty
 spawn-at-startup "~/.config/niri/scripts/swayidle.sh"
 // 大写锁定键的osd显示
 spawn-at-startup "swayosd-server"
+spawn-at-startup "swayosd-libinput-backend"
 // 自动开启护眼模式,经纬度设置位置
 // spawn-at-startup "~/.local/bin/toggle-wlsunset"
 // niri-siderbar
