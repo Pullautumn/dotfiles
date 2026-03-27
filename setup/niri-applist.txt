@@ -21,7 +21,6 @@ unarchiver                               # 解压缩工具
 prettyping                               # 可视化ping延迟的工具
 lazydocker                               # Docker的终端UI界面
 bat-extras                               # bat命令的附加工具集
-zoxide                                   # 智能cd命令替代品，快速跳转到常用目录
 lazygit                                  # Git的终端UI界面
 xclip                                    # X11 剪贴板管理器
 grim                                     # Wayland 截图工具
