@@ -25,6 +25,7 @@ application/zip=org.kde.ark.desktop
 x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
 application/x-extension-burp=install4j_1egslpi-BurpSuitePro.desktop
 x-scheme-handler/burp=install4j_1egslpi-BurpSuitePro.desktop
+inode/directory=org.gnome.Nautilus.desktop
 
 [Added Associations]
 text/plain=org.gnome.TextEditor.desktop;
