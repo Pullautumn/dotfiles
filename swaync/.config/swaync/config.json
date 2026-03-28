@@ -15,7 +15,7 @@
     "notification-inline-replies": true,
     "notification-window-width": 280,
     "notification-icon-size": 60,
-    "notification-body-image-height":  180,
+    "notification-body-image-height": 180,
     "notification-body-image-width": 180,
     "timeout": 4,
     "timeout-low": 6,
@@ -42,10 +42,9 @@
             "button-text": "󰆴"
         },
         "label": {
-            "max-lines":1,
+            "max-lines": 1,
             "text": "Notification Center!"
         },
-
         "mpris": {
             "image-size": 80,
             "image-radius": 0
@@ -68,7 +67,6 @@
                     "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
                     "type": "toggle"
                 },
-
                 {
                     "label": "",
                     "command": "kitty nmtui"
@@ -78,16 +76,14 @@
                     "command": "blueman-manager"
                 },
                 {
-                    "label":"󰤄",
+                    "label": "󰤄",
                     "command": "swaync-client -d",
-                    "type":"toggle"
+                    "type": "toggle"
                 },
-
                 {
                     "label": "󰀟",
                     "command": "gnome-network-displays"
                 },
-
                 {
                     "label": "󰈙",
                     "command": "kitty bash -i -c 'Docs'"
@@ -95,28 +91,24 @@
                 {
                     "label": "",
                     "command": "kitty bash -i -c 'Settings'"
-                    
                 },
                 {
                     "label": "",
                     "command": "missioncenter"
-
                 },
                 {
                     "label": "",
                     "command": "gtklock"
                 },
                 {
-                    "label":"",
+                    "label": "",
                     "command": "reboot"
                 },
                 {
-                    "label":"⏻",
+                    "label": "⏻",
                     "command": "shutdown now"
                 }
-
             ]
         }
     }
 }
-
