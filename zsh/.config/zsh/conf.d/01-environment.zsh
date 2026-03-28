@@ -32,3 +32,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 
 [[ -f $HOME/.ssh/keys/keys.env ]] && source $HOME/.ssh/keys/keys.env
+
+#### fnm nodejs版本管理  ####
+eval "$(fnm env --use-on-cd --shell zsh)"
+
