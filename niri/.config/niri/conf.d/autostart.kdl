@@ -34,7 +34,7 @@ spawn-at-startup "~/.config/niri/scripts/swayidle.sh"
 // 大写锁定键的osd显示
 spawn-at-startup "swayosd-server"
 // osd依赖，有些电脑会自动启动，看情况开启
-spawn-at-startup "pkexec" "swayosd-libinput-backend"
+spawn-sh-at-startup "sleep 2 && pkexec swayosd-libinput-backend"
 // 自动开启护眼模式,经纬度设置位置
 // spawn-at-startup "~/.local/bin/toggle-wlsunset"
 // niri-siderbar
