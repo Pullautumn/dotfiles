@@ -26,8 +26,8 @@ export MAVEN_HOME=$MVND_HOME/mvn
 export PATH=$MVND_HOME/bin:$MAVEN_HOME/bin:$PATH
 
 #### JDK  ####
-export JAVA_HOME="/opt/java/zulu8.92.0.19-ca-jdk8.0.482"
-# export JAVA_HOME="/opt/java/zulu21.48.15-ca-jdk21.0.10"
+export JAVA_HOME="/opt/java/zulu8.92.0.21-ca-fx-jdk8.0.482"
+# export JAVA_HOME="/opt/java/zulu21.48.15-ca-fx-jdk21.0.10"
 export PATH=$JAVA_HOME/bin:$PATH
 
 
