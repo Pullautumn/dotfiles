@@ -2,7 +2,8 @@
     //======================== Left ========================
     "custom/launcher": {
         "format": "&#8239;",
-        "on-click": "sh -c '~/.config/rofi/scripts/launcher_t7'",
+        // "on-click": "sh -c '~/.config/rofi/scripts/launcher_t7'",
+        "on-click": "sh -c '~/.config/rofi/scripts/launcher_t8'",
         "tooltip-format": "Launcher"
     },
     "niri/workspaces": {
@@ -127,7 +128,8 @@
     },
     "custom/clipboard": {
         "format": "󰅇",
-        "on-click": "pkill fuzzel || $HOME/.config/waybar/scripts/cliphist-fuzzel-img",
+        // "on-click": "pkill fuzzel || $HOME/.config/waybar/scripts/cliphist-fuzzel-img",
+        "on-click": "kitty --title shorinclip -e shorinclip",
         "tooltip-format": "Clipboard"
     },
     "cpu": {
