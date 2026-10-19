@@ -51,6 +51,7 @@ strace                                   # shorin-contrib-git 依赖
 
 # --- AUR Packages ---
 AUR:zsh                                  # Shell
+AUR:fnm                                  # fnm node版本管理
 AUR:thefuck                              # 自动纠正错误的命令行输入
 AUR:wlogout                              # 电源管理菜单
 #AUR:shorin-contrib-git                  # shorin 工具集
