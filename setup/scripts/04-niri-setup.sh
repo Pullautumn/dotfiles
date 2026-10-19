@@ -549,9 +549,23 @@ deploy_dotfiles_stow() {
 deploy_dotfiles_stow
 
 # ==============================================================================
-# STEP 7: Wallpapers
+# STEP 7: Set ZSH as default login shell
 # ==============================================================================
-section "Step 6/9" "Wallpapers"
+section "Step 7/9" "Set Zsh Default Shell"
+if command -v zsh &>/dev/null; then
+  ZSH_BIN=$(command -v zsh)
+  # 修改当前普通用户的默认shell，用as_user，不能root执行chsh！
+  as_user chsh -s "$ZSH_BIN"
+  success "✅ Default login shell changed to zsh. Logout & re-login to take effect."
+else
+  warn "zsh binary not found, skip changing login shell!"
+fi
+
+
+# ==============================================================================
+# STEP 8: Wallpapers
+# ==============================================================================
+section "Step 8/9" "Wallpapers"
 # 更新引用路径
 if [ -d "$DOTFILES_REPO/wallpapers" ]; then
   as_user ln -sf "$DOTFILES_REPO/wallpapers" "$HOME_DIR/Pictures/Wallpapers"
@@ -566,9 +580,9 @@ fi
 # === remove gtk bottom =======
 as_user gsettings set org.gnome.desktop.wm.preferences button-layout ":close"
 # ==============================================================================
-# STEP 8: Hardware Tools
+# STEP 9: Hardware Tools
 # ==============================================================================
-section "Step 7/9" "Hardware"
+section "Step 9/9" "Hardware"
 if pacman -Q ddcutil &>/dev/null; then
   gpasswd -a "$TARGET_USER" i2c
   lsmod | grep -q i2c_dev || echo "i2c-dev" >/etc/modules-load.d/i2c-dev.conf
@@ -622,7 +636,7 @@ as_user cp "$PARENT_DIR/resources/必看-pullautumn-Niri使用方法.txt" "$HOME
 
 
 # ==============================================================================
-# STEP 9: Display Manager (greetd + tuigreet) & Cleanup
+# STEP 10: Display Manager (greetd + tuigreet) & Cleanup
 # ==============================================================================
 section "Final" "Cleanup & Boot Configuration"
 

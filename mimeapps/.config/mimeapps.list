@@ -1,7 +1,7 @@
 [Default Applications]
 text/plain=org.gnome.TextEditor.desktop
 x-scheme-handler/clash=mihomo-party.desktop
-x-scheme-handler/clash-verge=clash-verge-handler.desktop
+x-scheme-handler/clash-verge=clash-verge.desktop;
 text/html=google-chrome.desktop
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
@@ -26,6 +26,7 @@ x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
 application/x-extension-burp=install4j_1egslpi-BurpSuitePro.desktop
 x-scheme-handler/burp=install4j_1egslpi-BurpSuitePro.desktop
 inode/directory=org.gnome.Nautilus.desktop
+x-scheme-handler/sparkle=sparkle.desktop
 
 [Added Associations]
 text/plain=org.gnome.TextEditor.desktop;
@@ -47,3 +48,5 @@ text/x-lua=org.gnome.TextEditor.desktop;
 inode/directory=code.desktop;
 text/markdown=typora.desktop;
 application/octet-stream=code.desktop;
+x-scheme-handler/clash=clash-verge.desktop;
+x-scheme-handler/clash-verge=clash-verge.desktop;

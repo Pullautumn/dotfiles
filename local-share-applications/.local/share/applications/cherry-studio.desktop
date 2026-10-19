@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Cherry Studio
+Comment=Launch Cherry Studio
+Exec=/opt/cherrystudio/Cherry-Studio-1.8.4-x86_64.AppImage %U
+Icon=/opt/cherrystudio/cherrystudio-logo.png
+Terminal=false
+Categories=Utility;
+StartupNotify=true
