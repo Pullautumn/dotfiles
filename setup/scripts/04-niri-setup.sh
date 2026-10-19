@@ -552,11 +552,17 @@ deploy_dotfiles_stow
 # STEP 7: Set ZSH as default login shell
 # ==============================================================================
 section "Step 7/9" "Set Zsh Default Shell"
-if command -v zsh &>/dev/null; then
-  ZSH_BIN=$(command -v zsh)
-  # 修改当前普通用户的默认shell，用as_user，不能root执行chsh！
-  as_user chsh -s "$ZSH_BIN"
-  success "✅ Default login shell changed to zsh. Logout & re-login to take effect."
+# 在普通用户环境获取zsh完整路径
+ZSH_BIN=$(as_user command -v zsh)
+if [[ -n "$ZSH_BIN" ]]; then
+  # 获取当前用户登录shell
+  CURRENT_SHELL=$(as_user echo "$SHELL")
+  if [[ "$CURRENT_SHELL" != "$ZSH_BIN" ]]; then
+    as_user chsh -s "$ZSH_BIN"
+    success "✅ Default login shell changed to zsh. Logout & re-login to take effect."
+  else
+    info "ℹ️ User shell is already zsh, skip."
+  fi
 else
   warn "zsh binary not found, skip changing login shell!"
 fi
